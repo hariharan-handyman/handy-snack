@@ -27,6 +27,7 @@ export default function ProductCard({ product }: { product: any }) {
         }
         localStorage.setItem('hm-favs', JSON.stringify(newFavs));
         setIsFavorite(!isFavorite);
+        window.dispatchEvent(new Event('favoritesChanged'));
     };
 
     const handleAddToCart = (e: React.MouseEvent) => {

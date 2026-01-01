@@ -17,6 +17,7 @@ export default function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const { cart } = useCart();
+    const [favCount, setFavCount] = useState(0);
     const pathname = usePathname();
 
     useEffect(() => {

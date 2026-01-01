@@ -22,7 +22,7 @@ export default function FeaturedProducts() {
                 <div className="flex items-end justify-between mb-12">
                     <div className="space-y-4">
                         <span className="text-sm font-bold uppercase tracking-widest opacity-40">The Best Sellers</span>
-                        <h2 className="text-5xl font-black tracking-tighter">FEATURED TREATS</h2>
+                        <h2 className="text-3xl font-black tracking-tighter">FEATURED TREATS</h2>
                     </div>
                     <Link href="/shop">
                         <Button variant="ghost" className="group">

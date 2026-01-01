@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { TrendingUp, ShoppingBag, Users, AlertCircle } from 'lucide-react';
+import { TrendingUp, ShoppingBag, Users, AlertCircle, Calendar } from 'lucide-react';
 
 const stats = [
     { name: 'Total Revenue', value: '₹1,24,500', icon: TrendingUp, change: '+12% from last week' },
@@ -14,14 +14,28 @@ const stats = [
 export default function AdminDashboard() {
     return (
         <div className="space-y-12">
-            <div className="flex justify-between items-end">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
                 <div className="space-y-3">
                     <span className="text-xs font-black uppercase tracking-widest opacity-30 italic">Handyman Technologies</span>
                     <h1 className="text-4xl font-black tracking-tighter italic">DASHBOARD</h1>
                 </div>
-                <div className="text-right">
-                    <p className="text-[10px] font-bold opacity-30 uppercase tracking-widest leading-none mb-1">Current Date</p>
-                    <p className="text-base font-black italic">{new Date().toLocaleDateString('en-IN', { dateStyle: 'long' })}</p>
+
+                <div className="flex items-center gap-4 bg-black/5 p-2 rounded-2xl border border-black/5">
+                    <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-xl shadow-sm text-xs font-bold italic">
+                        <Calendar size={14} className="opacity-40" />
+                        <span>Filter Range:</span>
+                        <select className="bg-transparent border-none outline-none focus:ring-0 cursor-pointer">
+                            <option>Last 7 Days</option>
+                            <option>Last 30 Days</option>
+                            <option>This Month</option>
+                            <option>This Year</option>
+                            <option>Custom Range</option>
+                        </select>
+                    </div>
+                    <div className="text-right pr-4 border-l border-black/10 transition-all hidden md:block">
+                        <p className="text-[10px] font-bold opacity-30 uppercase tracking-widest leading-none mb-1">Current Date</p>
+                        <p className="text-sm font-black italic">{new Date().toLocaleDateString('en-IN', { dateStyle: 'long' })}</p>
+                    </div>
                 </div>
             </div>
 

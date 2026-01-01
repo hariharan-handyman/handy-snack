@@ -13,10 +13,18 @@ export default function FavoritesPage() {
     const [favorites, setFavorites] = useState<any[]>([]);
 
     useEffect(() => {
-        const savedFavs = localStorage.getItem('hm-favs');
-        if (savedFavs) {
-            setFavorites(JSON.parse(savedFavs));
-        }
+        const loadFavs = () => {
+            const savedFavs = localStorage.getItem('hm-favs');
+            if (savedFavs) {
+                setFavorites(JSON.parse(savedFavs));
+            } else {
+                setFavorites([]);
+            }
+        };
+
+        loadFavs();
+        window.addEventListener('favoritesChanged', loadFavs);
+        return () => window.removeEventListener('favoritesChanged', loadFavs);
     }, []);
 
     return (
@@ -27,7 +35,7 @@ export default function FavoritesPage() {
                 <div className="container mx-auto px-4">
                     <div className="space-y-4 mb-16">
                         <span className="text-sm font-bold uppercase tracking-widest opacity-40">Your Likes</span>
-                        <h1 className="text-6xl font-black tracking-tighter">FAVORITES</h1>
+                        <h1 className="text-4xl font-black tracking-tighter">FAVORITES</h1>
                     </div>
 
                     {favorites.length === 0 ? (

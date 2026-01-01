@@ -35,7 +35,7 @@ export default function ShopPage() {
                     <div className="flex flex-col md:flex-row justify-between items-end gap-8 mb-16">
                         <div className="space-y-4">
                             <span className="text-sm font-bold uppercase tracking-widest opacity-40">Our Collection</span>
-                            <h1 className="text-6xl font-black tracking-tighter">THE SNACK SHOP</h1>
+                            <h1 className="text-4xl font-black tracking-tighter">THE SNACK SHOP</h1>
                         </div>
 
                         <ProductFilters
