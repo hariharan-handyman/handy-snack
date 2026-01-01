@@ -53,14 +53,6 @@ export default function Footer() {
 
                     <div>
                         <h4 className="text-xs font-black uppercase tracking-[0.2em] mb-8 text-accent">Join Us</h4>
-                        <div className="flex space-x-4 mb-8">
-                            <a href="#" className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center hover:bg-primary transition-all group shadow-xl">
-                                <Instagram size={20} className="group-hover:text-white" />
-                            </a>
-                            <a href="#" className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center hover:bg-secondary transition-all group shadow-xl">
-                                <Linkedin size={20} className="group-hover:text-white" />
-                            </a>
-                        </div>
                         <div className="bg-white/5 p-4 rounded-2xl border border-white/10">
                             <p className="text-[10px] font-black uppercase tracking-widest text-white/30 mb-2">Newsletter</p>
                             <div className="flex gap-2">

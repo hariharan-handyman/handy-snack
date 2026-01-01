@@ -24,22 +24,25 @@ export default function AddProductPage() {
     const onSubmit = async (data: any) => {
         setLoading(true);
         try {
+            // Generate slug from name
+            const slug = data.name.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
+
             await createProduct({
                 name: data.name,
+                slug: slug,
+                categoryId: parseInt(data.categoryId),
                 description: data.description,
-                price: parseFloat(data.price),
-                stock: parseFloat(data.stock),
-                category: data.category,
+                price: data.price.toString(), // Drizzle decimal expects string or number, but for precision 10,2 it's safe
+                stock: parseInt(data.stock),
                 images: [],
-                createdAt: new Date(),
-                updatedAt: new Date(),
+                offer: false
             });
             alert('Product created successfully!');
             reset();
             router.push('/products');
         } catch (error) {
+            console.error('Error creating product:', error);
             alert('Failed to create product. Please try again.');
-            console.error(error);
         } finally {
             setLoading(false);
         }
@@ -61,10 +64,10 @@ export default function AddProductPage() {
 
                     <div className="space-y-2">
                         <label className="text-[10px] font-black uppercase tracking-widest opacity-40">Category</label>
-                        <select {...register('category', { required: true })} className="w-full bg-white border-none rounded-2xl py-4 px-6 focus:ring-2 focus:ring-black outline-none font-medium">
+                        <select {...register('categoryId', { required: true })} className="w-full bg-white border-none rounded-2xl py-4 px-6 focus:ring-2 focus:ring-black outline-none font-medium">
                             <option value="">Select Category</option>
                             {categories.map(cat => (
-                                <option key={cat.id} value={cat.slug}>{cat.name}</option>
+                                <option key={cat.id} value={cat.id}>{cat.name}</option>
                             ))}
                         </select>
                     </div>
