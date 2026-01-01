@@ -53,7 +53,7 @@ export default function Navbar() {
                             key={link.name}
                             href={link.href}
                             className={cn(
-                                'text-sm font-medium hover:text-orange-500 transition-colors relative group',
+                                'text-sm font-medium hover:text-[#c5890e] transition-colors relative group',
                                 pathname === link.href ? 'text-black' : 'text-black/60'
                             )}
                         >

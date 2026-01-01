@@ -3,9 +3,9 @@
 @theme {
   --color-background: #ffffff;
   --color-foreground: #000000;
-  --color-primary: #000000;
-  --color-accent: #f97316; /* Snack orange placeholder */
-  
+  --color-primary: #c5890e;
+  --color-accent: #c5890e;
+
   --font-inter: "Inter", sans-serif;
 }
 
@@ -25,6 +25,13 @@
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-20px);
+  }
 }

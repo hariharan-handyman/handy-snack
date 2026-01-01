@@ -22,7 +22,7 @@ export default function AdminSidebar() {
         <aside className="w-80 h-screen sticky top-0 bg-black text-white p-12 flex flex-col justify-between shrink-0">
             <div className="space-y-16">
                 <div>
-                    <img src="/logo.png" alt="Handyman Admin" className="h-12 w-auto brightness-0 invert" />
+                    <img src="/logo.png" alt="Handyman Admin" className="h-12 w-auto" />
                     <p className="text-[10px] font-bold opacity-30 uppercase tracking-widest mt-2">Admin Dashboard</p>
                 </div>
 
