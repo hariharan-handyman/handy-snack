@@ -1,10 +1,33 @@
-import AdminSidebar from '@/components/admin/Sidebar';
+'use client';
 
-export default function AdminLayout({
-    children,
-}: {
-    children: React.ReactNode;
-}) {
+import AdminSidebar from '@/components/admin/Sidebar';
+import { AuthProvider, useAuth } from '@/context/AuthContext';
+import { usePathname, useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+
+function ProtectedLayout({ children }: { children: React.ReactNode }) {
+    const { user, loading } = useAuth();
+    const router = useRouter();
+    const pathname = usePathname();
+
+    useEffect(() => {
+        if (!loading && !user && pathname !== '/login') {
+            router.push('/login');
+        }
+    }, [user, loading, pathname, router]);
+
+    if (loading) {
+        return (
+            <div className="h-screen w-full flex items-center justify-center">
+                <div className="text-xs font-black uppercase tracking-[0.5em] animate-pulse">Checking Authorization...</div>
+            </div>
+        );
+    }
+
+    if (!user && pathname !== '/login') return null;
+
+    if (pathname === '/login') return <>{children}</>;
+
     return (
         <div className="flex bg-white min-h-screen">
             <AdminSidebar />
@@ -12,5 +35,17 @@ export default function AdminLayout({
                 {children}
             </main>
         </div>
+    );
+}
+
+export default function AdminLayout({
+    children,
+}: {
+    children: React.ReactNode;
+}) {
+    return (
+        <AuthProvider>
+            <ProtectedLayout>{children}</ProtectedLayout>
+        </AuthProvider>
     );
 }

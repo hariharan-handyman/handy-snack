@@ -3,16 +3,30 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/Button';
 import { motion } from 'framer-motion';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '@/lib/firebase/config';
+import { useRouter } from 'next/navigation';
 
 export default function AdminLoginPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
+    const router = useRouter();
 
-    const handleLogin = (e: React.FormEvent) => {
+    const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
-        // Firebase login logic here
-        alert('Logging in...');
-        window.location.href = '/dashboard';
+        setError('');
+        setLoading(true);
+        try {
+            await signInWithEmailAndPassword(auth, email, password);
+            router.push('/dashboard');
+        } catch (err: any) {
+            console.error(err);
+            setError(err.message || 'Failed to authenticate');
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -28,6 +42,12 @@ export default function AdminLoginPage() {
                 </div>
 
                 <form onSubmit={handleLogin} className="space-y-6">
+                    {error && (
+                        <div className="bg-red-50 text-red-500 p-4 rounded-2xl text-xs font-bold uppercase tracking-widest text-center border border-red-100">
+                            {error}
+                        </div>
+                    )}
+
                     <div className="space-y-2">
                         <label className="text-[10px] font-black uppercase tracking-widest opacity-40">Email</label>
                         <input
@@ -52,14 +72,14 @@ export default function AdminLoginPage() {
                         />
                     </div>
 
-                    <Button type="submit" size="lg" className="w-full shadow-2xl">
-                        Authorize Access
+                    <Button type="submit" size="lg" className="w-full shadow-2xl" disabled={loading}>
+                        {loading ? 'Authorizing...' : 'Authorize Access'}
                     </Button>
                 </form>
 
                 <div className="text-center">
                     <p className="text-[10px] font-bold opacity-20 uppercase tracking-widest transition-opacity hover:opacity-100 cursor-default">
-                        Secured by Firebase Admin SDK
+                        Secured by Firebase Auth
                     </p>
                 </div>
             </motion.div>

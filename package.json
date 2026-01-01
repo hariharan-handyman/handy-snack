@@ -13,6 +13,7 @@
     "@neondatabase/serverless": "^1.0.2",
     "clsx": "^2.1.1",
     "drizzle-orm": "^0.45.1",
+    "firebase": "^12.7.0",
     "firebase-admin": "^13.6.0",
     "framer-motion": "^12.23.26",
     "imagekitio-react": "^4.3.0",
