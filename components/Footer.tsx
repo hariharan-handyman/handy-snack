@@ -3,7 +3,7 @@ import { Instagram, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
 
 export default function Footer() {
     return (
-        <footer className="bg-black text-white pt-16 pb-8">
+        <footer className="bg-gradient-to-br from-[#4A2C1F] to-[#2B1810] text-[#F5E6D3] pt-16 pb-8">
             <div className="container mx-auto px-4">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
                     <div className="space-y-4">

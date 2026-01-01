@@ -18,96 +18,89 @@ export default function Hero() {
                 <div className="absolute inset-0 bg-gradient-to-br from-[#FFF8F0]/90 to-[#F5E6D3]/80" />
             </div>
 
-            {/* Antigravity Floating Snacks - 10 Premium Products */}
+            {/* Antigravity Floating Snacks - 10 Premium Products - Better Aligned */}
             <div className="absolute inset-0 pointer-events-none z-10">
-                {/* Row 1 - Top Left */}
+                {/* Top Row - Distributed evenly */}
                 <motion.div
-                    animate={{ y: [-20, 20, -20], rotate: [0, 5, -5, 0] }}
+                    animate={{ y: [-15, 15, -15], rotate: [0, 5, -5, 0] }}
                     transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-                    className="absolute top-[10%] left-[5%] w-40 h-40 drop-shadow-[0_20px_40px_rgba(197,137,14,0.2)] opacity-50"
+                    className="absolute top-[8%] left-[3%] w-32 h-32 drop-shadow-[0_15px_30px_rgba(197,137,14,0.15)] opacity-50"
                 >
                     <img src="/snack-bowl-mixture.png" alt="Bowl Mixture" className="w-full h-full object-contain" />
                 </motion.div>
 
-                {/* Row 1 - Top Center */}
                 <motion.div
-                    animate={{ y: [15, -15, 15], scale: [1, 1.05, 1] }}
+                    animate={{ y: [10, -10, 10], scale: [1, 1.05, 1] }}
                     transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                    className="absolute top-[8%] left-[35%] w-48 h-48 drop-shadow-[0_25px_50px_rgba(0,0,0,0.15)] opacity-50"
+                    className="absolute top-[5%] left-[22%] w-36 h-36 drop-shadow-[0_20px_40px_rgba(0,0,0,0.12)] opacity-50"
                 >
                     <img src="/snack-ribbon-pakoda.png" alt="Ribbon Pakoda" className="w-full h-full object-contain" />
                 </motion.div>
 
-                {/* Row 1 - Top Right */}
                 <motion.div
-                    animate={{ y: [-10, 10, -10], rotate: [0, -8, 0] }}
+                    animate={{ y: [-8, 8, -8], rotate: [0, -6, 0] }}
                     transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                    className="absolute top-[12%] right-[8%] w-44 h-44 drop-shadow-[0_20px_40px_rgba(197,137,14,0.18)] opacity-50"
+                    className="absolute top-[10%] right-[20%] w-34 h-34 drop-shadow-[0_15px_30px_rgba(197,137,14,0.15)] opacity-50"
                 >
                     <img src="/snack-boondi.png" alt="Boondi" className="w-full h-full object-contain" />
                 </motion.div>
 
-                {/* Row 2 - Middle Left */}
                 <motion.div
-                    animate={{ y: [20, -20, 20], x: [-10, 10, -10] }}
-                    transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
-                    className="absolute top-[40%] left-[12%] w-56 h-56 drop-shadow-[0_25px_50px_rgba(0,0,0,0.2)] opacity-50"
+                    animate={{ y: [12, -12, 12], rotate: [0, 8, 0] }}
+                    transition={{ duration: 8.5, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
+                    className="absolute top-[6%] right-[3%] w-38 h-38 drop-shadow-[0_20px_40px_rgba(0,0,0,0.15)] opacity-50"
+                >
+                    <img src="/snack-karasev.png" alt="Karasev" className="w-full h-full object-contain" />
+                </motion.div>
+
+                {/* Middle Row - Sides only to avoid center content */}
+                <motion.div
+                    animate={{ y: [18, -18, 18], x: [-8, 8, -8] }}
+                    transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+                    className="absolute top-[35%] left-[2%] w-44 h-44 drop-shadow-[0_20px_40px_rgba(0,0,0,0.18)] opacity-50"
                 >
                     <img src="/snack-spicy-peanuts.png" alt="Spicy Peanuts" className="w-full h-full object-contain" />
                 </motion.div>
 
-                {/* Row 2 - Middle Right */}
                 <motion.div
-                    animate={{ y: [-15, 15, -15], rotate: [0, 10, 0] }}
-                    transition={{ duration: 8.5, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-                    className="absolute top-[35%] right-[15%] w-52 h-52 drop-shadow-[0_25px_50px_rgba(197,137,14,0.22)] opacity-50"
+                    animate={{ y: [-12, 12, -12], rotate: [0, 10, 0] }}
+                    transition={{ duration: 8.5, repeat: Infinity, ease: "easeInOut", delay: 2.5 }}
+                    className="absolute top-[38%] right-[1%] w-40 h-40 drop-shadow-[0_20px_40px_rgba(197,137,14,0.2)] opacity-50"
                 >
                     <img src="/snack-vadai.png" alt="Vadai" className="w-full h-full object-contain" />
                 </motion.div>
 
-                {/* Row 3 - Bottom Left */}
+                {/* Bottom Row - Well distributed */}
                 <motion.div
-                    animate={{ y: [10, -10, 10], scale: [1, 1.08, 1] }}
-                    transition={{ duration: 7.5, repeat: Infinity, ease: "easeInOut", delay: 2.5 }}
-                    className="absolute bottom-[15%] left-[8%] w-46 h-46 drop-shadow-[0_20px_40px_rgba(0,0,0,0.18)] opacity-50"
+                    animate={{ y: [8, -8, 8], scale: [0.98, 1.05, 0.98] }}
+                    transition={{ duration: 7.5, repeat: Infinity, ease: "easeInOut", delay: 3 }}
+                    className="absolute bottom-[12%] left-[5%] w-36 h-36 drop-shadow-[0_15px_30px_rgba(0,0,0,0.15)] opacity-50"
                 >
                     <img src="/snack-chakli.png" alt="Chakli" className="w-full h-full object-contain" />
                 </motion.div>
 
-                {/* Row 3 - Bottom Center Left */}
                 <motion.div
-                    animate={{ y: [-18, 18, -18], rotate: [0, -6, 0] }}
-                    transition={{ duration: 9.5, repeat: Infinity, ease: "easeInOut", delay: 3 }}
-                    className="absolute bottom-[18%] left-[30%] w-48 h-48 drop-shadow-[0_25px_50px_rgba(197,137,14,0.2)] opacity-50"
+                    animate={{ y: [-14, 14, -14], rotate: [0, -5, 0] }}
+                    transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 3.5 }}
+                    className="absolute bottom-[8%] left-[25%] w-38 h-38 drop-shadow-[0_20px_40px_rgba(197,137,14,0.17)] opacity-50"
                 >
                     <img src="/snack-thattai.png" alt="Thattai" className="w-full h-full object-contain" />
                 </motion.div>
 
-                {/* Row 3 - Bottom Center */}
                 <motion.div
-                    animate={{ y: [12, -12, 12], x: [8, -8, 8] }}
-                    transition={{ duration: 8.8, repeat: Infinity, ease: "easeInOut", delay: 3.5 }}
-                    className="absolute bottom-[10%] left-[50%] w-60 h-60 drop-shadow-[0_30px_60px_rgba(0,0,0,0.25)] opacity-50"
+                    animate={{ y: [10, -10, 10], x: [6, -6, 6] }}
+                    transition={{ duration: 8.8, repeat: Infinity, ease: "easeInOut", delay: 4 }}
+                    className="absolute bottom-[15%] right-[23%] w-42 h-42 drop-shadow-[0_25px_50px_rgba(0,0,0,0.2)] opacity-50"
                 >
                     <img src="/snack-murukku-bowl.png" alt="Murukku Bowl" className="w-full h-full object-contain" />
                 </motion.div>
 
-                {/* Row 3 - Bottom Right */}
                 <motion.div
-                    animate={{ y: [-14, 14, -14], rotate: [0, 7, 0] }}
-                    transition={{ duration: 7.8, repeat: Infinity, ease: "easeInOut", delay: 4 }}
-                    className="absolute bottom-[20%] right-[10%] w-54 h-54 drop-shadow-[0_25px_50px_rgba(197,137,14,0.23)] opacity-50"
+                    animate={{ y: [-10, 10, -10], rotate: [0, 6, 0] }}
+                    transition={{ duration: 7.8, repeat: Infinity, ease: "easeInOut", delay: 4.5 }}
+                    className="absolute bottom-[10%] right-[4%] w-40 h-40 drop-shadow-[0_20px_40px_rgba(197,137,14,0.18)] opacity-50"
                 >
                     <img src="/snack-murukku-bowl-2.png" alt="Murukku Bowl 2" className="w-full h-full object-contain" />
-                </motion.div>
-
-                {/* Accent - Top Far Right */}
-                <motion.div
-                    animate={{ y: [8, -8, 8], scale: [0.95, 1.05, 0.95] }}
-                    transition={{ duration: 6.5, repeat: Infinity, ease: "easeInOut", delay: 4.5 }}
-                    className="absolute top-[25%] right-[3%] w-42 h-42 drop-shadow-[0_20px_40px_rgba(0,0,0,0.16)] opacity-50"
-                >
-                    <img src="/snack-karasev.png" alt="Karasev" className="w-full h-full object-contain" />
                 </motion.div>
             </div>
 
