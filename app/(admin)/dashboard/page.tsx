@@ -13,20 +13,20 @@ const stats = [
 
 export default function AdminDashboard() {
     return (
-        <div className="space-y-16">
+        <div className="space-y-12">
             <div className="flex justify-between items-end">
-                <div className="space-y-4">
-                    <span className="text-sm font-black uppercase tracking-widest opacity-30 italic">Handyman Technologies</span>
-                    <h1 className="text-6xl font-black tracking-tighter italic">DASHBOARD</h1>
+                <div className="space-y-3">
+                    <span className="text-xs font-black uppercase tracking-widest opacity-30 italic">Handyman Technologies</span>
+                    <h1 className="text-4xl font-black tracking-tighter italic">DASHBOARD</h1>
                 </div>
                 <div className="text-right">
-                    <p className="text-xs font-bold opacity-30 uppercase tracking-widest leading-none mb-1">Current Date</p>
-                    <p className="text-xl font-black italic">{new Date().toLocaleDateString('en-IN', { dateStyle: 'long' })}</p>
+                    <p className="text-[10px] font-bold opacity-30 uppercase tracking-widest leading-none mb-1">Current Date</p>
+                    <p className="text-base font-black italic">{new Date().toLocaleDateString('en-IN', { dateStyle: 'long' })}</p>
                 </div>
             </div>
 
-            {/* Stats Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {/* Stats Grid - 2x2 */}
+            <div className="grid grid-cols-2 gap-6">
                 {stats.map((stat, i) => (
                     <motion.div
                         key={stat.name}

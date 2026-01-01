@@ -133,14 +133,14 @@ export default function Hero() {
                         <span className="text-sm font-black uppercase tracking-widest opacity-60 mt-4 block text-[#A67C52]">Mixtures • Murukku • Millet Bites</span>
                     </p>
 
-                    <div className="flex flex-col md:flex-row items-center justify-center gap-6 pt-6">
+                    <div className="flex flex-col md:flex-row items-center justify-center gap-4 pt-6">
                         <Link href="/shop" className="w-full md:w-auto">
-                            <Button size="lg" className="px-16 py-8 text-xl rounded-full shadow-[0_20px_50px_rgba(197,137,14,0.3)] bg-[#c5890e] hover:bg-[#D4715A] text-white transition-all">
+                            <Button size="lg" className="px-10 py-4 text-base rounded-full shadow-[0_15px_35px_rgba(197,137,14,0.25)] bg-[#c5890e] hover:bg-[#D4715A] text-white transition-all">
                                 Start Snacking
                             </Button>
                         </Link>
                         <Link href="/story" className="w-full md:w-auto">
-                            <Button variant="outline" size="lg" className="px-16 py-8 text-xl rounded-full border-2 border-[#4A2C1F] text-[#2B1810] hover:bg-[#4A2C1F] hover:text-[#FFF8F0] transition-all">
+                            <Button variant="outline" size="lg" className="px-10 py-4 text-base rounded-full border-2 border-[#4A2C1F] text-[#2B1810] hover:bg-[#4A2C1F] hover:text-[#FFF8F0] transition-all">
                                 Our Story
                             </Button>
                         </Link>

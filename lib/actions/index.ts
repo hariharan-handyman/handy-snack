@@ -10,6 +10,23 @@ export async function getCategories() {
     return await db.select().from(categories);
 }
 
+export async function createCategory(data: any) {
+    const res = await db.insert(categories).values(data).returning();
+    revalidatePath('/categories');
+    return res[0];
+}
+
+export async function updateCategory(id: number, data: any) {
+    const res = await db.update(categories).set(data).where(eq(categories.id, id)).returning();
+    revalidatePath('/categories');
+    return res[0];
+}
+
+export async function deleteCategory(id: number) {
+    await db.delete(categories).where(eq(categories.id, id));
+    revalidatePath('/categories');
+}
+
 // Products
 export async function getProducts() {
     return await db.select().from(products).orderBy(desc(products.createdAt));
@@ -17,6 +34,13 @@ export async function getProducts() {
 
 export async function createProduct(data: any) {
     const res = await db.insert(products).values(data).returning();
+    revalidatePath('/shop');
+    revalidatePath('/products');
+    return res[0];
+}
+
+export async function updateProduct(id: number, data: any) {
+    const res = await db.update(products).set(data).where(eq(products.id, id)).returning();
     revalidatePath('/shop');
     revalidatePath('/products');
     return res[0];
