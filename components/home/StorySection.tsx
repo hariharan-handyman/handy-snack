@@ -6,8 +6,8 @@ import { motion } from 'framer-motion';
 
 export default function StorySection() {
     return (
-        <section className="py-24 bg-black text-white relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-1/2 h-full bg-white/5 skew-x-[-20deg] translate-x-1/2 pointer-events-none" />
+        <section className="py-24 bg-gradient-to-br from-[#2B1810] to-[#4A2C1F] text-[#FFF8F0] relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-1/2 h-full bg-[#c5890e]/10 skew-x-[-20deg] translate-x-1/2 pointer-events-none" />
 
             <div className="container mx-auto px-4 relative z-10">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
@@ -17,13 +17,13 @@ export default function StorySection() {
                         viewport={{ once: true }}
                         className="space-y-8"
                     >
-                        <span className="text-sm font-bold uppercase tracking-widest text-white/40 italic">Since 2024</span>
+                        <span className="text-sm font-bold uppercase tracking-widest text-[#E89A6F] italic">Since 2024</span>
                         <h2 className="text-6xl font-black tracking-tighter leading-none">
                             EMPOWERING <br />
-                            <span className="text-transparent [-webkit-text-stroke:1px_white]">HOMES</span>
+                            <span className="text-transparent [-webkit-text-stroke:1px_#FFF8F0]">HOMES</span>
                         </h2>
 
-                        <div className="space-y-6 text-lg text-white/60 leading-relaxed font-medium">
+                        <div className="space-y-6 text-lg text-[#F5E6D3]/80 leading-relaxed font-medium">
                             <p>
                                 Handyman Technologies isn’t just about snacks; it’s about a silent revolution. We believe that true hygiene starts at home, and true empowerment begins with a choice.
                             </p>
@@ -45,7 +45,7 @@ export default function StorySection() {
                         className="relative"
                     >
                         <Link href="/story">
-                            <div className="aspect-[4/5] rounded-[3rem] bg-white/10 overflow-hidden border border-white/10 group">
+                            <div className="aspect-[4/5] rounded-[3rem] bg-[#FFF8F0]/10 overflow-hidden border border-[#c5890e]/20 group">
                                 <img
                                     src="/founder.png"
                                     alt="Founder"

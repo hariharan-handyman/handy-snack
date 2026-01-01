@@ -39,7 +39,7 @@ export default function Navbar() {
             animate={{ y: 0 }}
             className={cn(
                 'fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b',
-                isScrolled ? 'bg-white/95 backdrop-blur-md py-3 border-black/10 shadow-sm' : 'bg-white/80 backdrop-blur-sm py-5 border-black/5'
+                isScrolled ? 'bg-[#FFF8F0]/95 backdrop-blur-md py-3 border-[#A67C52]/30 shadow-sm' : 'bg-[#FFF8F0]/85 backdrop-blur-sm py-5 border-[#F5E6D3]'
             )}
         >
             <div className="container mx-auto px-4 flex items-center justify-between">
@@ -54,13 +54,13 @@ export default function Navbar() {
                             key={link.name}
                             href={link.href}
                             className={cn(
-                                'text-sm font-medium hover:text-[#c5890e] transition-colors relative group',
-                                pathname === link.href ? 'text-black' : 'text-black/60'
+                                'text-sm font-medium hover:text-[#D4715A] transition-colors relative group',
+                                pathname === link.href ? 'text-[#2B1810]' : 'text-[#4A2C1F]/70'
                             )}
                         >
                             {link.name}
                             <motion.span
-                                className="absolute -bottom-1 left-0 w-0 h-0.5 bg-black transition-all group-hover:w-full"
+                                className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#c5890e] transition-all group-hover:w-full"
                                 layoutId={pathname === link.href ? 'underline' : undefined}
                             />
                         </Link>
@@ -68,7 +68,7 @@ export default function Navbar() {
                 </div>
 
                 {/* Icons */}
-                <div className="flex items-center space-x-5 text-black">
+                <div className="flex items-center space-x-5 text-[#2B1810]">
                     <button className="hover:scale-110 transition-transform">
                         <Search size={20} />
                     </button>
@@ -78,7 +78,7 @@ export default function Navbar() {
                     <Link href="/cart" className="hover:scale-110 transition-transform relative">
                         <ShoppingCart size={20} />
                         {cart.length > 0 && (
-                            <span className="absolute -top-2 -right-2 bg-black text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
+                            <span className="absolute -top-2 -right-2 bg-[#D4715A] text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
                                 {cart.length}
                             </span>
                         )}

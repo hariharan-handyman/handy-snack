@@ -7,15 +7,15 @@ import Link from 'next/link';
 
 export default function Hero() {
     return (
-        <section className="relative h-screen flex items-center justify-center overflow-hidden bg-white">
+        <section className="relative h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#FFF8F0] via-[#F5E6D3] to-[#FFF8F0]">
             {/* Background Image Collage - Subtle Overlay */}
-            <div className="absolute inset-0 z-0 opacity-10 grayscale hover:grayscale-0 transition-all duration-1000">
+            <div className="absolute inset-0 z-0 opacity-[0.08] grayscale">
                 <img
                     src="/hero-collage.png"
                     alt="Handyman Snacks"
                     className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-white/60" />
+                <div className="absolute inset-0 bg-gradient-to-br from-[#FFF8F0]/90 to-[#F5E6D3]/80" />
             </div>
 
             {/* Antigravity Floating Snacks - 10 Premium Products */}
@@ -130,24 +130,24 @@ export default function Hero() {
                         <div className="h-px w-24 bg-[#c5890e]" />
                     </motion.div>
 
-                    <h1 className="text-7xl md:text-9xl font-black tracking-tighter leading-[0.8] text-black">
+                    <h1 className="text-7xl md:text-9xl font-black tracking-tighter leading-[0.8] text-[#2B1810]">
                         TASTE THE <br />
                         <span className="text-[#c5890e]">TRADITION.</span>
                     </h1>
 
-                    <p className="text-xl md:text-2xl text-black/70 font-bold max-w-2xl mx-auto leading-tight italic">
+                    <p className="text-xl md:text-2xl text-[#4A2C1F]/80 font-bold max-w-2xl mx-auto leading-tight italic">
                         Deliciously crunchy, 100% hygienic, and crafted by women artisans. <br />
-                        <span className="text-sm font-black uppercase tracking-widest opacity-40 mt-4 block">Mixtures • Murukku • Millet Bites</span>
+                        <span className="text-sm font-black uppercase tracking-widest opacity-60 mt-4 block text-[#A67C52]">Mixtures • Murukku • Millet Bites</span>
                     </p>
 
                     <div className="flex flex-col md:flex-row items-center justify-center gap-6 pt-6">
                         <Link href="/shop" className="w-full md:w-auto">
-                            <Button size="lg" className="px-16 py-8 text-xl rounded-full shadow-[0_20px_50px_rgba(197,137,14,0.3)] bg-[#c5890e] hover:bg-[#a6740c]">
+                            <Button size="lg" className="px-16 py-8 text-xl rounded-full shadow-[0_20px_50px_rgba(197,137,14,0.3)] bg-[#c5890e] hover:bg-[#D4715A] text-white transition-all">
                                 Start Snacking
                             </Button>
                         </Link>
                         <Link href="/story" className="w-full md:w-auto">
-                            <Button variant="outline" size="lg" className="px-16 py-8 text-xl rounded-full border-2 hover:bg-black hover:text-white transition-all">
+                            <Button variant="outline" size="lg" className="px-16 py-8 text-xl rounded-full border-2 border-[#4A2C1F] text-[#2B1810] hover:bg-[#4A2C1F] hover:text-[#FFF8F0] transition-all">
                                 Our Story
                             </Button>
                         </Link>
