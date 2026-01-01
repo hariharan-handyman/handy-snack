@@ -1,16 +1,48 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/Button';
-import { motion } from 'framer-motion';
+import { createProduct, getCategories } from '@/lib/actions';
+import { useRouter } from 'next/navigation';
 
 export default function AddProductPage() {
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, reset } = useForm();
+    const [categories, setCategories] = useState<any[]>([]);
+    const [loading, setLoading] = useState(false);
+    const router = useRouter();
 
-    const onSubmit = (data: any) => {
-        alert('Product Added (Placeholder)');
-        console.log(data);
+    useEffect(() => {
+        loadCategories();
+    }, []);
+
+    async function loadCategories() {
+        const data = await getCategories();
+        setCategories(data);
+    }
+
+    const onSubmit = async (data: any) => {
+        setLoading(true);
+        try {
+            await createProduct({
+                name: data.name,
+                description: data.description,
+                price: parseFloat(data.price),
+                stock: parseFloat(data.stock),
+                category: data.category,
+                images: [],
+                createdAt: new Date(),
+                updatedAt: new Date(),
+            });
+            alert('Product created successfully!');
+            reset();
+            router.push('/products');
+        } catch (error) {
+            alert('Failed to create product. Please try again.');
+            console.error(error);
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -24,26 +56,27 @@ export default function AddProductPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                     <div className="space-y-2">
                         <label className="text-[10px] font-black uppercase tracking-widest opacity-40">Product Name</label>
-                        <input {...register('name')} className="w-full bg-white border-none rounded-2xl py-4 px-6 focus:ring-2 focus:ring-black outline-none font-medium" />
+                        <input {...register('name', { required: true })} className="w-full bg-white border-none rounded-2xl py-4 px-6 focus:ring-2 focus:ring-black outline-none font-medium" />
                     </div>
 
                     <div className="space-y-2">
                         <label className="text-[10px] font-black uppercase tracking-widest opacity-40">Category</label>
-                        <select {...register('category')} className="w-full bg-white border-none rounded-2xl py-4 px-6 focus:ring-2 focus:ring-black outline-none font-medium">
-                            <option>Mixtures</option>
-                            <option>Health</option>
-                            <option>Baked</option>
+                        <select {...register('category', { required: true })} className="w-full bg-white border-none rounded-2xl py-4 px-6 focus:ring-2 focus:ring-black outline-none font-medium">
+                            <option value="">Select Category</option>
+                            {categories.map(cat => (
+                                <option key={cat.id} value={cat.slug}>{cat.name}</option>
+                            ))}
                         </select>
                     </div>
 
                     <div className="space-y-2">
                         <label className="text-[10px] font-black uppercase tracking-widest opacity-40">Price per KG (₹)</label>
-                        <input {...register('price')} type="number" className="w-full bg-white border-none rounded-2xl py-4 px-6 focus:ring-2 focus:ring-black outline-none font-medium" />
+                        <input {...register('price', { required: true })} type="number" step="0.01" className="w-full bg-white border-none rounded-2xl py-4 px-6 focus:ring-2 focus:ring-black outline-none font-medium" />
                     </div>
 
                     <div className="space-y-2">
                         <label className="text-[10px] font-black uppercase tracking-widest opacity-40">Initial Stock (KG)</label>
-                        <input {...register('stock')} type="number" className="w-full bg-white border-none rounded-2xl py-4 px-6 focus:ring-2 focus:ring-black outline-none font-medium" />
+                        <input {...register('stock', { required: true })} type="number" step="0.01" className="w-full bg-white border-none rounded-2xl py-4 px-6 focus:ring-2 focus:ring-black outline-none font-medium" />
                     </div>
 
                     <div className="md:col-span-2 space-y-2">
@@ -53,8 +86,10 @@ export default function AddProductPage() {
                 </div>
 
                 <div className="pt-8 flex gap-4">
-                    <Button type="submit" size="lg" className="flex-1 shadow-2xl">Create Product</Button>
-                    <Button type="button" variant="outline" size="lg" onClick={() => window.history.back()}>Cancel</Button>
+                    <Button type="submit" size="lg" className="flex-1 shadow-2xl" disabled={loading}>
+                        {loading ? 'Creating...' : 'Create Product'}
+                    </Button>
+                    <Button type="button" variant="outline" size="lg" onClick={() => router.back()}>Cancel</Button>
                 </div>
             </form>
         </div>

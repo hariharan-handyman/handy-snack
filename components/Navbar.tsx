@@ -27,6 +27,19 @@ export default function Navbar() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    // Track favorites count
+    useEffect(() => {
+        const updateFavCount = () => {
+            const favs = JSON.parse(localStorage.getItem('hm-favs') || '[]');
+            setFavCount(favs.length);
+        };
+
+        updateFavCount();
+        window.addEventListener('favoritesChanged', updateFavCount);
+
+        return () => window.removeEventListener('favoritesChanged', updateFavCount);
+    }, []);
+
     const navLinks = [
         { name: 'Home', href: '/' },
         { name: 'Shop', href: '/shop' },
@@ -74,6 +87,11 @@ export default function Navbar() {
                     </button>
                     <Link href="/favs" className="hover:scale-110 transition-transform relative">
                         <Heart size={20} />
+                        {favCount > 0 && (
+                            <span className="absolute -top-2 -right-2 bg-[#D4715A] text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
+                                {favCount}
+                            </span>
+                        )}
                     </Link>
                     <Link href="/cart" className="hover:scale-110 transition-transform relative">
                         <ShoppingCart size={20} />

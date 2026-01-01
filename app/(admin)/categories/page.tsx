@@ -1,18 +1,37 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Plus, Search, Edit3, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
-
-const MOCK_CATEGORIES = [
-    { id: 1, name: 'Mixtures', slug: 'mixtures', productCount: 12 },
-    { id: 2, name: 'Health', slug: 'health', productCount: 8 },
-    { id: 3, name: 'Baked', slug: 'baked', productCount: 15 },
-];
+import { getCategories, deleteCategory } from '@/lib/actions';
 
 export default function AdminCategoriesPage() {
     const [search, setSearch] = useState('');
+    const [categories, setCategories] = useState<any[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        loadCategories();
+    }, []);
+
+    async function loadCategories() {
+        setLoading(true);
+        const data = await getCategories();
+        setCategories(data);
+        setLoading(false);
+    }
+
+    async function handleDelete(id: number) {
+        if (confirm('Are you sure you want to delete this category?')) {
+            await deleteCategory(id);
+            loadCategories(); // Refresh list
+        }
+    }
+
+    const filteredCategories = categories.filter(c =>
+        c.name.toLowerCase().includes(search.toLowerCase())
+    );
 
     return (
         <div className="space-y-16">
@@ -33,7 +52,7 @@ export default function AdminCategoriesPage() {
                             onChange={(e) => setSearch(e.target.value)}
                         />
                     </div>
-                    <Button size="icon" className="shadow-2xl">
+                    <Button size="icon" className="shadow-2xl" onClick={() => alert('Create category form coming soon!')}>
                         <Plus size={24} />
                     </Button>
                 </div>
@@ -41,44 +60,58 @@ export default function AdminCategoriesPage() {
 
             <div className="bg-black/5 rounded-[4rem] p-8 border border-black/5">
                 <div className="overflow-x-auto">
-                    <table className="w-full">
-                        <thead>
-                            <tr className="text-left border-b border-black/5">
-                                <th className="px-8 py-8 text-[10px] font-black uppercase tracking-widest opacity-30">Category Name</th>
-                                <th className="px-8 py-8 text-[10px] font-black uppercase tracking-widest opacity-30">Slug</th>
-                                <th className="px-8 py-8 text-[10px] font-black uppercase tracking-widest opacity-30">Products</th>
-                                <th className="px-8 py-8 text-[10px] font-black uppercase tracking-widest opacity-30 text-right">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {MOCK_CATEGORIES.map((cat) => (
-                                <tr key={cat.id} className="group hover:bg-black hover:text-white transition-all">
-                                    <td className="px-8 py-8">
-                                        <div className="flex items-center gap-4">
-                                            <div className="w-12 h-12 rounded-2xl bg-black/10 group-hover:bg-white/10 flex items-center justify-center text-[10px] font-black italic uppercase shrink-0">
-                                                {cat.name.charAt(0)}
-                                            </div>
-                                            <p className="font-black text-sm tracking-tight">{cat.name}</p>
-                                        </div>
-                                    </td>
-                                    <td className="px-8 py-8 text-xs font-bold opacity-60 group-hover:opacity-100 tracking-widest">
-                                        {cat.slug}
-                                    </td>
-                                    <td className="px-8 py-8 font-black text-sm italic">{cat.productCount} items</td>
-                                    <td className="px-8 py-8 text-right">
-                                        <div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0 transition-all">
-                                            <button className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white hover:text-black transition-all">
-                                                <Edit3 size={16} />
-                                            </button>
-                                            <button className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-red-500 hover:text-white transition-all">
-                                                <Trash2 size={16} />
-                                            </button>
-                                        </div>
-                                    </td>
+                    {loading ? (
+                        <div className="text-center py-20">
+                            <p className="text-sm font-bold opacity-40">Loading categories...</p>
+                        </div>
+                    ) : filteredCategories.length === 0 ? (
+                        <div className="text-center py-20">
+                            <p className="text-sm font-bold opacity-40">No categories found.</p>
+                        </div>
+                    ) : (
+                        <table className="w-full">
+                            <thead>
+                                <tr className="text-left border-b border-black/5">
+                                    <th className="px-8 py-8 text-[10px] font-black uppercase tracking-widest opacity-30">Category Name</th>
+                                    <th className="px-8 py-8 text-[10px] font-black uppercase tracking-widest opacity-30">Slug</th>
+                                    <th className="px-8 py-8 text-[10px] font-black uppercase tracking-widest opacity-30 text-right">Actions</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {filteredCategories.map((cat) => (
+                                    <tr key={cat.id} className="group hover:bg-black hover:text-white transition-all">
+                                        <td className="px-8 py-8">
+                                            <div className="flex items-center gap-4">
+                                                <div className="w-12 h-12 rounded-2xl bg-black/10 group-hover:bg-white/10 flex items-center justify-center text-[10px] font-black italic uppercase shrink-0">
+                                                    {cat.name.charAt(0)}
+                                                </div>
+                                                <p className="font-black text-sm tracking-tight">{cat.name}</p>
+                                            </div>
+                                        </td>
+                                        <td className="px-8 py-8 text-xs font-bold opacity-60 group-hover:opacity-100 tracking-widest">
+                                            {cat.slug}
+                                        </td>
+                                        <td className="px-8 py-8 text-right">
+                                            <div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0 transition-all">
+                                                <button
+                                                    onClick={() => alert('Edit category form coming soon!')}
+                                                    className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white hover:text-black transition-all"
+                                                >
+                                                    <Edit3 size={16} />
+                                                </button>
+                                                <button
+                                                    onClick={() => handleDelete(cat.id)}
+                                                    className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-red-500 hover:text-white transition-all"
+                                                >
+                                                    <Trash2 size={16} />
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    )}
                 </div>
             </div>
         </div>
