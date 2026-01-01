@@ -32,7 +32,7 @@ export default function MapSection() {
                                 </div>
                                 <div>
                                     <h4 className="font-bold">Phone</h4>
-                                    <p className="text-sm opacity-60">+91 XXXXXXXXXX</p>
+                                    <p className="text-sm opacity-60">+91 9042387152</p>
                                 </div>
                             </div>
 
@@ -42,7 +42,7 @@ export default function MapSection() {
                                 </div>
                                 <div>
                                     <h4 className="font-bold">Email</h4>
-                                    <p className="text-sm opacity-60">info@handyman.com</p>
+                                    <p className="text-sm opacity-60">handyman.tech.in@gmail.com</p>
                                 </div>
                             </div>
                         </div>
@@ -50,7 +50,7 @@ export default function MapSection() {
 
                     <div className="lg:w-2/3 h-[400px] lg:h-auto rounded-[2.5rem] overflow-hidden grayscale hover:grayscale-0 transition-all duration-700">
                         <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3916.4716484392474!2d77.0621376!3d10.9829378!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba859f979720475%3A0xc02e4d077c98030!2sBaba%20Nagar%2C%20Pappampatti%2C%20Tamil%20Nadu%20641016!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3917.140529876089!2d77.11163789999999!3d10.952755500000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba8530057769f53%3A0x99254791bd82d208!2sHandyman%20Technologies!5e0!3m2!1sen!2sin!4v1767271918174!5m2!1sen!2sin"
                             width="100%"
                             height="100%"
                             style={{ border: 0 }}

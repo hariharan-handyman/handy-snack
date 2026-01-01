@@ -19,7 +19,7 @@ export default function Footer() {
                         <ul className="space-y-3 text-sm text-white/60">
                             <li><Link href="/" className="hover:text-white transition-colors">Home</Link></li>
                             <li><Link href="/shop" className="hover:text-white transition-colors">Shop All</Link></li>
-                            <li><Link href="/about" className="hover:text-white transition-colors">Our Story</Link></li>
+                            <li><Link href="/story" className="hover:text-white transition-colors">Our Story</Link></li>
                             <li><Link href="/faq" className="hover:text-white transition-colors">FAQs</Link></li>
                         </ul>
                     </div>
@@ -31,10 +31,10 @@ export default function Footer() {
                                 <MapPin size={16} /> 7/23, Baba Nagar, Pappampatti, Coimbatore
                             </li>
                             <li className="flex items-center gap-3">
-                                <Phone size={16} /> +91 XXXXXXXXXX
+                                <Phone size={16} /> +91 9042387152
                             </li>
                             <li className="flex items-center gap-3">
-                                <Mail size={16} /> info@handyman.com
+                                <Mail size={16} /> handyman.tech.in@gmail.com
                             </li>
                         </ul>
                     </div>

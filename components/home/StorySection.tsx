@@ -27,8 +27,13 @@ export default function StorySection() {
                                 Handyman Technologies isn’t just about snacks; it’s about a silent revolution. We believe that true hygiene starts at home, and true empowerment begins with a choice.
                             </p>
                             <p>
-                                Every packet of our mixture or millet bites is crafted in certified home-based units by skilled women entrepreneurs across India. By bringing their traditional expertise to the global stage, we ensure you get the freshest treats while we support rural livelihoods.
+                                Handyman Technologies champions women empowerment by partnering with families to deliver their time-honored snacks worldwide. Crafted by 100+ year-old 5th-generation businesses for unbeatable taste.
                             </p>
+                            <div className="pt-4">
+                                <Link href="/story" className="inline-block px-8 py-3 bg-[#c5890e] rounded-full text-sm font-black uppercase tracking-widest hover:scale-105 transition-transform">
+                                    Read Our Story
+                                </Link>
+                            </div>
                         </div>
                     </motion.div>
 
@@ -38,15 +43,25 @@ export default function StorySection() {
                         viewport={{ once: true }}
                         className="relative"
                     >
-                        <div className="aspect-[4/5] rounded-[3rem] bg-white/10 flex items-center justify-center border border-white/10">
-                            <div className="text-white/20 font-black text-8xl rotate-90 tracking-tighter italic">HANDYMAN</div>
-                        </div>
+                        <Link href="/story">
+                            <div className="aspect-[4/5] rounded-[3rem] bg-white/10 overflow-hidden border border-white/10 group">
+                                <img
+                                    src="/founder.png"
+                                    alt="Founder"
+                                    className="w-full h-full object-cover grayscale opacity-60 group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-700"
+                                />
+                                <div className="absolute inset-x-0 bottom-0 p-8 bg-gradient-to-t from-black to-transparent">
+                                    <p className="text-xl font-black italic tracking-tighter">Hariharan Jeyaramamoorthy</p>
+                                    <p className="text-[10px] font-bold opacity-40 uppercase tracking-widest">Founder</p>
+                                </div>
+                            </div>
+                        </Link>
 
                         {/* Floating decoration */}
                         <motion.div
                             animate={{ y: [0, -20, 0] }}
                             transition={{ duration: 5, repeat: Infinity }}
-                            className="absolute -top-10 -right-10 w-40 h-40 bg-white/5 backdrop-blur-3xl rounded-full border border-white/20"
+                            className="absolute -top-10 -right-10 w-40 h-40 bg-[#c5890e]/20 backdrop-blur-3xl rounded-full border border-white/10"
                         />
                     </motion.div>
                 </div>
