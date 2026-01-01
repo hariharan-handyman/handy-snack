@@ -42,8 +42,8 @@ export default function Navbar() {
             )}
         >
             <div className="container mx-auto px-4 flex items-center justify-between">
-                <Link href="/" className="text-2xl font-bold tracking-tighter hover:scale-105 transition-transform text-black">
-                    HANDYMAN
+                <Link href="/" className="hover:scale-105 transition-transform">
+                    <img src="/logo.png" alt="Handyman Logo" className="h-10 w-auto" />
                 </Link>
 
                 {/* Desktop Nav */}
