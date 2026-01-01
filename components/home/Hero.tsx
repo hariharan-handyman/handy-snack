@@ -4,6 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/Button';
 import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 
 export default function Hero() {
     return (
