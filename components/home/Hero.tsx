@@ -123,14 +123,14 @@ export default function Hero() {
                         <div className="h-px w-24 bg-[#c5890e]" />
                     </motion.div>
 
-                    <h1 className="text-7xl md:text-9xl font-black tracking-tighter leading-[0.8] text-[#2B1810]">
+                    <h1 className="text-4xl md:text-7xl font-black tracking-tighter leading-[0.8] text-[#2B1810]">
                         TASTE THE <br />
                         <span className="text-[#c5890e]">TRADITION.</span>
                     </h1>
 
-                    <p className="text-xl md:text-2xl text-[#4A2C1F]/80 font-bold max-w-2xl mx-auto leading-tight italic">
+                    <p className="text-base md:text-lg text-[#4A2C1F]/80 font-bold max-w-2xl mx-auto leading-tight italic">
                         Deliciously crunchy, 100% hygienic, and crafted by women artisans. <br />
-                        <span className="text-sm font-black uppercase tracking-widest opacity-60 mt-4 block text-[#A67C52]">Mixtures • Murukku • Millet Bites</span>
+                        <span className="text-xs font-black uppercase tracking-widest opacity-60 mt-4 block text-[#A67C52]">Mixtures • Murukku • Millet Bites</span>
                     </p>
 
                     <div className="flex flex-col md:flex-row items-center justify-center gap-4 pt-6">
