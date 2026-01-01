@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, ShoppingBag, List, ClipboardList, Settings, LogOut } from 'lucide-react';
+import { LayoutDashboard, ShoppingBag, List, ClipboardList, LogOut } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 
 const menuItems = [
@@ -11,7 +11,6 @@ const menuItems = [
     { name: 'Products', href: '/products', icon: ShoppingBag },
     { name: 'Categories', href: '/categories', icon: List },
     { name: 'Orders', href: '/orders', icon: ClipboardList },
-    { name: 'Settings', href: '/settings', icon: Settings },
 ];
 
 export default function AdminSidebar() {

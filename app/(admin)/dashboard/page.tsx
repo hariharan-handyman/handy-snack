@@ -33,14 +33,14 @@ export default function AdminDashboard() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: i * 0.1 }}
-                        className={`p-10 rounded-[3rem] bg-black/5 border border-transparent hover:border-black/5 transition-all group`}
+                        className={`p-8 rounded-[3rem] bg-black/5 border border-transparent hover:border-black/5 transition-all group flex flex-col`}
                     >
-                        <div className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-8 ${stat.urgent ? 'bg-red-500 text-white' : 'bg-black text-white'}`}>
+                        <div className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-6 ${stat.urgent ? 'bg-red-500 text-white' : 'bg-black text-white'}`}>
                             <stat.icon size={20} />
                         </div>
-                        <p className="text-xs font-bold opacity-40 uppercase tracking-widest mb-2">{stat.name}</p>
-                        <h3 className="text-4xl font-black italic mb-4">{stat.value}</h3>
-                        <p className={`text-[10px] font-bold uppercase tracking-tight ${stat.urgent ? 'text-red-500' : 'opacity-40'}`}>
+                        <p className="text-xs font-bold opacity-40 uppercase tracking-widest mb-3">{stat.name}</p>
+                        <h3 className="text-3xl md:text-4xl font-black italic mb-3 break-words">{stat.value}</h3>
+                        <p className={`text-[10px] font-bold uppercase tracking-tight break-words ${stat.urgent ? 'text-red-500' : 'opacity-40'}`}>
                             {stat.change}
                         </p>
                     </motion.div>
