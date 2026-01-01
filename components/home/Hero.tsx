@@ -18,7 +18,7 @@ export default function Hero() {
                 <div className="absolute inset-0 bg-white/60" />
             </div>
 
-            {/* Antigravity Floating Snacks */}
+            {/* Antigravity Floating Snacks - Clean Transparent */}
             <div className="absolute inset-0 pointer-events-none z-10">
                 <motion.div
                     animate={{
@@ -26,9 +26,9 @@ export default function Hero() {
                         rotate: [0, 5, -5, 0]
                     }}
                     transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-                    className="absolute top-[15%] left-[10%] w-48 h-48 drop-shadow-2xl"
+                    className="absolute top-[15%] left-[10%] w-64 h-64 drop-shadow-[0_25px_50px_rgba(197,137,14,0.25)]"
                 >
-                    <img src="/snack-float-1.png" alt="Floating Snack" className="w-full h-full object-contain" />
+                    <img src="/snack-mixture.png" alt="Mixture" className="w-full h-full object-contain" />
                 </motion.div>
 
                 <motion.div
@@ -37,9 +37,9 @@ export default function Hero() {
                         rotate: [0, -5, 5, 0]
                     }}
                     transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-                    className="absolute bottom-[20%] right-[12%] w-56 h-56 drop-shadow-2xl"
+                    className="absolute bottom-[20%] right-[12%] w-72 h-72 drop-shadow-[0_25px_50px_rgba(0,0,0,0.2)]"
                 >
-                    <img src="/snack-float-2.png" alt="Floating Snack" className="w-full h-full object-contain" />
+                    <img src="/snack-murukku.png" alt="Murukku" className="w-full h-full object-contain" />
                 </motion.div>
 
                 <motion.div
@@ -48,9 +48,9 @@ export default function Hero() {
                         scale: [1, 1.1, 1]
                     }}
                     transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
-                    className="absolute top-[25%] right-[15%] w-32 h-32 opacity-40 blur-[2px]"
+                    className="absolute top-[35%] right-[8%] w-48 h-48 drop-shadow-[0_20px_40px_rgba(197,137,14,0.15)]"
                 >
-                    <img src="/snack-float-1.png" alt="Floating Snack" className="w-full h-full object-contain" />
+                    <img src="/snack-makhana.png" alt="Makhana" className="w-full h-full object-contain" />
                 </motion.div>
             </div>
 

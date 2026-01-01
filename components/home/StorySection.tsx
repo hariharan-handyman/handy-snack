@@ -51,19 +51,21 @@ export default function StorySection() {
                                     alt="Founder"
                                     className="w-full h-full object-cover grayscale opacity-60 group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-700"
                                 />
-                                <div className="absolute inset-x-0 bottom-0 p-8 bg-gradient-to-t from-black to-transparent">
-                                    <p className="text-xl font-black italic tracking-tighter">Hariharan Jeyaramamoorthy</p>
-                                    <p className="text-[10px] font-bold opacity-40 uppercase tracking-widest">Founder</p>
+                                <div className="absolute inset-x-0 bottom-0 p-8 bg-gradient-to-t from-black via-black/80 to-transparent">
+                                    <p className="text-xl font-black italic tracking-tighter text-white">Hariharan Jeyaramamoorthy</p>
+                                    <p className="text-[10px] font-bold text-white/60 uppercase tracking-widest">Founder</p>
                                 </div>
                             </div>
                         </Link>
 
-                        {/* Floating decoration */}
+                        {/* Floating decoration with logo */}
                         <motion.div
                             animate={{ y: [0, -20, 0] }}
                             transition={{ duration: 5, repeat: Infinity }}
-                            className="absolute -top-10 -right-10 w-40 h-40 bg-[#c5890e]/20 backdrop-blur-3xl rounded-full border border-white/10"
-                        />
+                            className="absolute -top-10 -right-10 w-40 h-40 bg-[#c5890e]/20 backdrop-blur-3xl rounded-full border border-white/10 flex items-center justify-center"
+                        >
+                            <img src="/logo.png" alt="Handyman Logo" className="w-20 h-20 object-contain opacity-80" />
+                        </motion.div>
                     </motion.div>
                 </div>
             </div>
