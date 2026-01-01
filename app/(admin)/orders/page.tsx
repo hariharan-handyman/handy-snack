@@ -54,8 +54,8 @@ export default function AdminOrdersPage() {
                                     <td className="px-8 py-8 text-xs font-bold opacity-60 group-hover:opacity-100 uppercase tracking-widest">{order.date}</td>
                                     <td className="px-8 py-8">
                                         <span className={`px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest ${order.status === 'Delivered' ? 'bg-green-500 text-white' :
-                                                order.status === 'Shipped' ? 'bg-blue-500 text-white' :
-                                                    'bg-orange-500 text-white'
+                                            order.status === 'Shipped' ? 'bg-blue-500 text-white' :
+                                                'bg-[#c5890e] text-white'
                                             }`}>
                                             {order.status}
                                         </span>

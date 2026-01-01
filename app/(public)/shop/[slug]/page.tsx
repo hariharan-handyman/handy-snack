@@ -78,11 +78,11 @@ export default function ProductDetailPage() {
                             <div className="space-y-6 pt-4">
                                 <div className="flex items-center gap-6">
                                     <div className="flex items-center gap-6 bg-black/5 rounded-full px-8 py-4">
-                                        <button onClick={() => setQuantity(q => Math.max(1, q - 1))} className="hover:text-orange-500 transition-colors">
+                                        <button onClick={() => setQuantity(q => Math.max(1, q - 1))} className="hover:text-[#c5890e] transition-colors">
                                             <span className="text-2xl font-bold">−</span>
                                         </button>
                                         <span className="font-black text-xl w-8 text-center">{quantity}</span>
-                                        <button onClick={() => setQuantity(q => q + 1)} className="hover:text-orange-500 transition-colors">
+                                        <button onClick={() => setQuantity(q => q + 1)} className="hover:text-[#c5890e] transition-colors">
                                             <span className="text-2xl font-bold">+</span>
                                         </button>
                                     </div>

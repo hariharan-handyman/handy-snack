@@ -67,7 +67,7 @@ export default function ProductCard({ product }: { product: any }) {
                     </button>
                     <button
                         onClick={handleAddToCart}
-                        className="w-12 h-12 rounded-full bg-black text-white shadow-2xl flex items-center justify-center hover:bg-orange-600 transition-all scale-90 hover:scale-100"
+                        className="w-12 h-12 rounded-full bg-black text-white shadow-2xl flex items-center justify-center hover:bg-[#a6740c] transition-all scale-90 hover:scale-100"
                     >
                         <ShoppingCart size={20} />
                     </button>
@@ -75,7 +75,7 @@ export default function ProductCard({ product }: { product: any }) {
 
                 {/* Offer Badge */}
                 {product.offer && (
-                    <div className="absolute top-6 left-6 px-4 py-1 bg-orange-500 text-white text-[10px] font-black uppercase tracking-widest rounded-full">
+                    <div className="absolute top-6 left-6 px-4 py-1 bg-[#c5890e] text-white text-[10px] font-black uppercase tracking-widest rounded-full">
                         OFFER
                     </div>
                 )}
@@ -83,7 +83,7 @@ export default function ProductCard({ product }: { product: any }) {
 
             <div className="space-y-2 text-center px-4">
                 <Link href={`/shop/${product.slug}`}>
-                    <h3 className="text-xl font-bold tracking-tight hover:text-orange-500 transition-colors">{product.name}</h3>
+                    <h3 className="text-xl font-bold tracking-tight hover:text-[#c5890e] transition-colors">{product.name}</h3>
                 </Link>
                 <div className="flex items-center justify-center gap-3">
                     <span className="font-black text-lg">₹{product.price}</span>
