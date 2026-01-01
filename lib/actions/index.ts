@@ -56,3 +56,9 @@ export async function deleteProduct(id: number) {
 export async function getOrders() {
     return await db.select().from(orders).orderBy(desc(orders.createdAt));
 }
+
+export async function createOrder(data: any) {
+    const res = await db.insert(orders).values(data).returning();
+    revalidatePath('/dashboard');
+    return res[0];
+}

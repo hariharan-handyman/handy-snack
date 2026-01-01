@@ -53,28 +53,31 @@ export default function Navbar() {
             animate={{ y: 0 }}
             className={cn(
                 'fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b',
-                isScrolled ? 'bg-[#FFF8F0]/95 backdrop-blur-md py-3 border-[#A67C52]/30 shadow-sm' : 'bg-[#FFF8F0]/85 backdrop-blur-sm py-5 border-[#F5E6D3]'
+                isScrolled ? 'bg-white/80 backdrop-blur-lg py-4 border-primary/20 shadow-lg' : 'bg-transparent py-6 border-transparent'
             )}
         >
-            <div className="container mx-auto px-4 flex items-center justify-between">
-                <Link href="/" className="hover:scale-105 transition-transform">
-                    <img src="/logo.png" alt="Handyman Logo" className="h-10 w-auto" />
+            <div className="container mx-auto px-6 flex items-center justify-between">
+                <Link href="/" className="hover:scale-105 transition-transform flex items-center gap-2">
+                    <div className="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-xl flex items-center justify-center shadow-lg">
+                        <span className="text-white font-black italic">HM</span>
+                    </div>
+                    <span className="text-2xl font-black italic tracking-tighter text-dark">HANDYMAN</span>
                 </Link>
 
                 {/* Desktop Nav */}
-                <div className="hidden md:flex items-center space-x-8">
+                <div className="hidden md:flex items-center space-x-10">
                     {navLinks.map((link) => (
                         <Link
                             key={link.name}
                             href={link.href}
                             className={cn(
-                                'text-sm font-medium hover:text-[#D4715A] transition-colors relative group',
-                                pathname === link.href ? 'text-[#2B1810]' : 'text-[#4A2C1F]/70'
+                                'text-sm font-bold tracking-tight hover:text-primary transition-colors relative group',
+                                pathname === link.href ? 'text-secondary' : 'text-dark/70'
                             )}
                         >
                             {link.name}
                             <motion.span
-                                className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#c5890e] transition-all group-hover:w-full"
+                                className="absolute -bottom-2 left-0 w-0 h-1 bg-gradient-to-r from-primary to-secondary rounded-full transition-all group-hover:w-full"
                                 layoutId={pathname === link.href ? 'underline' : undefined}
                             />
                         </Link>
@@ -82,28 +85,28 @@ export default function Navbar() {
                 </div>
 
                 {/* Icons */}
-                <div className="flex items-center space-x-5 text-[#2B1810]">
-                    <button className="hover:scale-110 transition-transform">
-                        <Search size={20} />
+                <div className="flex items-center space-x-6">
+                    <button className="w-10 h-10 rounded-full hover:bg-primary/10 flex items-center justify-center transition-colors">
+                        <Search size={20} className="text-dark" />
                     </button>
-                    <Link href="/favs" className="hover:scale-110 transition-transform relative">
-                        <Heart size={20} />
+                    <Link href="/favs" className="w-10 h-10 rounded-full hover:bg-primary/10 flex items-center justify-center transition-colors relative group">
+                        <Heart size={20} className="text-dark group-hover:text-primary transition-colors" />
                         {favCount > 0 && (
-                            <span className="absolute -top-2 -right-2 bg-[#D4715A] text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
+                            <span className="absolute top-1 right-1 bg-primary text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold animate-bounce">
                                 {favCount}
                             </span>
                         )}
                     </Link>
-                    <Link href="/cart" className="hover:scale-110 transition-transform relative">
+                    <Link href="/cart" className="w-12 h-12 rounded-2xl bg-dark text-white flex items-center justify-center shadow-xl hover:bg-secondary transition-all relative">
                         <ShoppingCart size={20} />
                         {cart.length > 0 && (
-                            <span className="absolute -top-2 -right-2 bg-[#D4715A] text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
+                            <span className="absolute -top-1 -right-1 bg-primary text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold border-2 border-white">
                                 {cart.length}
                             </span>
                         )}
                     </Link>
                     <button
-                        className="md:hidden hover:scale-110 transition-transform"
+                        className="md:hidden w-10 h-10 flex items-center justify-center"
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                     >
                         {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}

@@ -27,28 +27,39 @@ export default function ShopPage() {
     });
 
     return (
-        <main className="min-h-screen bg-white">
+        <main className="min-h-screen bg-white relative overflow-hidden">
             <Navbar />
 
-            <section className="pt-32 pb-24">
-                <div className="container mx-auto px-4">
-                    <div className="flex flex-col md:flex-row justify-between items-end gap-8 mb-16">
-                        <div className="space-y-4">
-                            <span className="text-sm font-bold uppercase tracking-widest opacity-40">Our Collection</span>
-                            <h1 className="text-4xl font-black tracking-tighter">THE SNACK SHOP</h1>
+            {/* Background Glows */}
+            <div className="absolute top-0 right-0 w-[40vw] h-[40vw] bg-primary/5 rounded-full blur-[120px] translate-x-1/4 -translate-y-1/4" />
+            <div className="absolute bottom-0 left-0 w-[30vw] h-[30vw] bg-accent/5 rounded-full blur-[100px] -translate-x-1/4 translate-y-1/4" />
+
+            <section className="pt-40 pb-32 relative z-10">
+                <div className="container mx-auto px-6">
+                    <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-12 mb-24">
+                        <div className="space-y-6 max-w-2xl">
+                            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20">
+                                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Discover Excellence</span>
+                            </div>
+                            <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-none text-dark italic">
+                                THE <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">SNACK</span> <br />
+                                <span className="text-dark/20">SHOP.</span>
+                            </h1>
                         </div>
 
-                        <ProductFilters
-                            search={search}
-                            setSearch={setSearch}
-                            activeCategory={activeCategory}
-                            setActiveCategory={setActiveCategory}
-                        />
+                        <div className="w-full lg:w-auto">
+                            <ProductFilters
+                                search={search}
+                                setSearch={setSearch}
+                                activeCategory={activeCategory}
+                                setActiveCategory={setActiveCategory}
+                            />
+                        </div>
                     </div>
 
                     <motion.div
                         layout
-                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12"
+                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 lg:gap-12"
                     >
                         {filteredProducts.map((prod) => (
                             <ProductCard key={prod.id} product={prod} />
@@ -56,9 +67,23 @@ export default function ShopPage() {
                     </motion.div>
 
                     {filteredProducts.length === 0 && (
-                        <div className="py-24 text-center">
-                            <h3 className="text-2xl font-bold opacity-20">No snacks found for your selection.</h3>
-                        </div>
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            className="py-40 text-center"
+                        >
+                            <div className="w-24 h-24 bg-dark/5 rounded-full flex items-center justify-center mx-auto mb-6">
+                                <span className="text-4xl">🔍</span>
+                            </div>
+                            <h3 className="text-2xl font-black text-dark/30 italic uppercase tracking-tighter">No snacks found.</h3>
+                            <p className="text-dark/40 font-bold mt-2">Try adjusting your filters or search term.</p>
+                            <button
+                                onClick={() => { setSearch(''); setActiveCategory('All'); }}
+                                className="mt-8 text-sm font-black text-primary hover:text-secondary uppercase tracking-widest underline underline-offset-8"
+                            >
+                                Reset All Filters
+                            </button>
+                        </motion.div>
                     )}
                 </div>
             </section>

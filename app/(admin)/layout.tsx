@@ -29,9 +29,9 @@ function ProtectedLayout({ children }: { children: React.ReactNode }) {
     if (pathname === '/login') return <>{children}</>;
 
     return (
-        <div className="flex bg-white min-h-screen">
+        <div className="flex bg-[#F8FAFC] min-h-screen">
             <AdminSidebar />
-            <main className="flex-1 p-16">
+            <main className="flex-1 p-8 lg:p-16 h-screen overflow-y-auto no-scrollbar">
                 {children}
             </main>
         </div>

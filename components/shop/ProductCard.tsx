@@ -6,6 +6,13 @@ import { Heart, ShoppingCart, Share2 } from 'lucide-react';
 import Link from 'next/link';
 import { useCart } from '@/context/CartContext';
 
+import { clsx, type ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+
+function cn(...inputs: ClassValue[]) {
+    return twMerge(clsx(inputs));
+}
+
 export default function ProductCard({ product }: { product: any }) {
     const { addToCart } = useCart();
     const [isFavorite, setIsFavorite] = useState(false);
@@ -39,56 +46,78 @@ export default function ProductCard({ product }: { product: any }) {
     return (
         <motion.div
             layout
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            whileHover={{ y: -10 }}
-            className="group relative"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            whileHover={{ y: -8 }}
+            className="group relative bg-white rounded-[2rem] p-4 border border-dark/5 shadow-sm hover:shadow-2xl transition-all duration-500"
         >
-            <div className="relative aspect-[4/5] rounded-[2.5rem] bg-black/5 overflow-hidden mb-6">
+            <div className="relative aspect-[4/5] rounded-[1.5rem] bg-gradient-to-br from-primary/5 to-secondary/5 overflow-hidden mb-6">
                 {/* Antigravity floating on hover */}
                 <motion.div
-                    whileHover={{ y: -20, rotate: 2, scale: 1.1 }}
-                    className="w-full h-full p-12 flex items-center justify-center"
+                    whileHover={{ y: -10, rotate: 2, scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                    className="w-full h-full p-8 flex items-center justify-center relative z-10"
                 >
-                    <div className="w-full h-full bg-black/10 rounded-3xl flex items-center justify-center text-black/20 font-black text-xl italic uppercase tracking-tighter rotate-[-5deg]">
-                        {product.category}
+                    <div className="w-full h-full bg-white/40 backdrop-blur-sm rounded-2xl flex items-center justify-center shadow-inner border border-white/50">
+                        <span className="text-dark/20 font-black text-2xl italic uppercase tracking-tighter rotate-[-10deg]">
+                            {product.category}
+                        </span>
                     </div>
                 </motion.div>
 
-                {/* Action Buttons */}
-                <div className="absolute top-6 right-6 flex flex-col gap-3 opacity-0 group-hover:opacity-100 translate-x-10 group-hover:translate-x-0 transition-all duration-300">
+                {/* Status Badge */}
+                <div className="absolute top-4 left-4 z-20">
+                    <span className="px-3 py-1 bg-white/80 backdrop-blur-md border border-white text-[9px] font-black uppercase tracking-widest text-dark rounded-full shadow-sm">
+                        {product.category}
+                    </span>
+                </div>
+
+                {/* Quick Actions */}
+                <div className="absolute top-4 right-4 flex flex-col gap-2 z-20 opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0 transition-all duration-300">
                     <button
                         onClick={toggleFavorite}
-                        className={`w-12 h-12 rounded-full shadow-2xl flex items-center justify-center transition-all scale-90 hover:scale-100 ${isFavorite ? 'bg-black text-white' : 'bg-white text-black hover:bg-black hover:text-white'}`}
+                        className={cn(
+                            "w-10 h-10 rounded-xl flex items-center justify-center transition-all shadow-lg backdrop-blur-md border",
+                            isFavorite ? "bg-primary border-primary text-white" : "bg-white/80 border-white text-dark hover:bg-primary hover:text-white"
+                        )}
                     >
-                        <Heart size={20} fill={isFavorite ? "white" : "none"} />
+                        <Heart size={18} fill={isFavorite ? "currentColor" : "none"} />
                     </button>
-                    <button className="w-12 h-12 rounded-full bg-white shadow-2xl flex items-center justify-center hover:bg-black hover:text-white transition-all scale-90 hover:scale-100">
-                        <Share2 size={20} />
-                    </button>
-                    <button
-                        onClick={handleAddToCart}
-                        className="w-12 h-12 rounded-full bg-black text-white shadow-2xl flex items-center justify-center hover:bg-[#a6740c] transition-all scale-90 hover:scale-100"
-                    >
-                        <ShoppingCart size={20} />
+                    <button className="w-10 h-10 rounded-xl bg-white/80 border border-white text-dark flex items-center justify-center shadow-lg backdrop-blur-md hover:bg-secondary hover:text-white transition-all">
+                        <Share2 size={18} />
                     </button>
                 </div>
 
-                {/* Offer Badge */}
-                {product.offer && (
-                    <div className="absolute top-6 left-6 px-4 py-1 bg-[#c5890e] text-white text-[10px] font-black uppercase tracking-widest rounded-full">
-                        OFFER
-                    </div>
-                )}
+                {/* Add to Cart Overlay */}
+                <div className="absolute inset-x-4 bottom-4 z-20 translate-y-12 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                    <button
+                        onClick={handleAddToCart}
+                        className="w-full h-12 bg-dark text-white rounded-xl font-black text-xs uppercase tracking-widest shadow-xl hover:bg-accent flex items-center justify-center gap-2 transition-all"
+                    >
+                        <ShoppingCart size={16} /> Add to Cart
+                    </button>
+                </div>
             </div>
 
-            <div className="space-y-2 text-center px-4">
-                <Link href={`/shop/${product.slug}`}>
-                    <h3 className="text-xl font-bold tracking-tight hover:text-[#c5890e] transition-colors">{product.name}</h3>
-                </Link>
-                <div className="flex items-center justify-center gap-3">
-                    <span className="font-black text-lg">₹{product.price}</span>
-                    <span className="text-sm opacity-40 font-medium tracking-widest uppercase">Per KG</span>
+            <div className="px-2 pb-2 space-y-3">
+                <div className="flex justify-between items-start">
+                    <Link href={`/shop/${product.slug}`} className="group/title">
+                        <h3 className="text-lg font-black tracking-tight text-dark group-hover/title:text-primary transition-colors leading-tight">
+                            {product.name}
+                        </h3>
+                    </Link>
+                </div>
+
+                <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-1">
+                        <span className="text-xl font-black text-dark">₹{product.price}</span>
+                        <span className="text-[10px] font-bold text-dark/30 uppercase tracking-widest mt-1">/ KG</span>
+                    </div>
+                    {product.offer && (
+                        <span className="text-[9px] font-black bg-accent/10 text-accent px-2 py-1 rounded-md uppercase tracking-widest">
+                            {product.offer}
+                        </span>
+                    )}
                 </div>
             </div>
         </motion.div>
