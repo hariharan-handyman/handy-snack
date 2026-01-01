@@ -32,6 +32,11 @@ export async function getProducts() {
     return await db.select().from(products).orderBy(desc(products.createdAt));
 }
 
+export async function getProduct(id: number) {
+    const res = await db.select().from(products).where(eq(products.id, id));
+    return res[0];
+}
+
 export async function createProduct(data: any) {
     const res = await db.insert(products).values(data).returning();
     revalidatePath('/shop');
