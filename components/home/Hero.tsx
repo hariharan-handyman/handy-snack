@@ -8,64 +8,91 @@ import Link from 'next/link';
 export default function Hero() {
     return (
         <section className="relative h-screen flex items-center justify-center overflow-hidden bg-white">
-            {/* Antigravity Floating Elements (Placeholders for snacks) */}
-            <div className="absolute inset-0 pointer-events-none">
-                {[...Array(6)].map((_, i) => (
-                    <motion.div
-                        key={i}
-                        initial={{ y: 0, x: Math.random() * 100 - 50, opacity: 0 }}
-                        animate={{
-                            y: [-20, 20, -20],
-                            x: [0, 10, -10, 0],
-                            opacity: 0.1 + (Math.random() * 0.2)
-                        }}
-                        transition={{
-                            y: { duration: 4 + Math.random() * 4, repeat: Infinity, ease: "easeInOut" },
-                            x: { duration: 6 + Math.random() * 4, repeat: Infinity, ease: "easeInOut" },
-                            opacity: { duration: 2 }
-                        }}
-                        className="absolute rounded-2xl bg-black/5 backdrop-blur-sm"
-                        style={{
-                            width: Math.random() * 150 + 100,
-                            height: Math.random() * 150 + 100,
-                            top: `${Math.random() * 80 + 10}%`,
-                            left: `${Math.random() * 80 + 10}%`,
-                        }}
-                    />
-                ))}
+            {/* Background Image Collage - Subtle Overlay */}
+            <div className="absolute inset-0 z-0 opacity-10 grayscale hover:grayscale-0 transition-all duration-1000">
+                <img
+                    src="/hero-collage.png"
+                    alt="Handyman Snacks"
+                    className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-white/60" />
             </div>
 
-            <div className="container mx-auto px-4 relative z-10 text-center">
+            {/* Antigravity Floating Snacks */}
+            <div className="absolute inset-0 pointer-events-none z-10">
+                <motion.div
+                    animate={{
+                        y: [-20, 20, -20],
+                        rotate: [0, 5, -5, 0]
+                    }}
+                    transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute top-[15%] left-[10%] w-48 h-48 drop-shadow-2xl"
+                >
+                    <img src="/snack-float-1.png" alt="Floating Snack" className="w-full h-full object-contain" />
+                </motion.div>
+
+                <motion.div
+                    animate={{
+                        y: [20, -20, 20],
+                        rotate: [0, -5, 5, 0]
+                    }}
+                    transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute bottom-[20%] right-[12%] w-56 h-56 drop-shadow-2xl"
+                >
+                    <img src="/snack-float-2.png" alt="Floating Snack" className="w-full h-full object-contain" />
+                </motion.div>
+
+                <motion.div
+                    animate={{
+                        y: [-15, 15, -15],
+                        scale: [1, 1.1, 1]
+                    }}
+                    transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute top-[25%] right-[15%] w-32 h-32 opacity-40 blur-[2px]"
+                >
+                    <img src="/snack-float-1.png" alt="Floating Snack" className="w-full h-full object-contain" />
+                </motion.div>
+            </div>
+
+            <div className="container mx-auto px-4 relative z-20 text-center">
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
-                    className="max-w-4xl mx-auto space-y-8"
+                    className="max-w-4xl mx-auto space-y-10"
                 >
-                    <motion.span
+                    <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.2 }}
-                        className="inline-block px-4 py-1.5 rounded-full bg-black/5 text-xs font-bold tracking-widest uppercase"
+                        className="flex flex-col items-center gap-4"
                     >
-                        Revolutionary Snack Brand
-                    </motion.span>
+                        <span className="inline-block px-4 py-1.5 rounded-full bg-black/5 text-xs font-black tracking-widest uppercase">
+                            Premium Indian Snacks
+                        </span>
+                        <div className="h-px w-24 bg-[#c5890e]" />
+                    </motion.div>
 
-                    <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] text-black">
-                        HYGIENE IN <br />
-                        <span className="text-transparent border-t-black [-webkit-text-stroke:1px_black]">EVERY STEP</span>
+                    <h1 className="text-7xl md:text-9xl font-black tracking-tighter leading-[0.8] text-black">
+                        TASTE THE <br />
+                        <span className="text-[#c5890e]">TRADITION.</span>
                     </h1>
 
-                    <p className="text-xl md:text-2xl text-black/60 font-medium max-w-2xl mx-auto">
-                        Heart in every bite – Empowering women, delighting you with premium hand-crafted snacks.
+                    <p className="text-xl md:text-2xl text-black/70 font-bold max-w-2xl mx-auto leading-tight italic">
+                        Deliciously crunchy, 100% hygienic, and crafted by women artisans. <br />
+                        <span className="text-sm font-black uppercase tracking-widest opacity-40 mt-4 block">Mixtures • Murukku • Millet Bites</span>
                     </p>
 
-                    <div className="flex flex-col md:flex-row items-center justify-center gap-4 pt-4">
-                        <Link href="/shop">
-                            <Button size="lg" className="px-12">Shop Now</Button>
+                    <div className="flex flex-col md:flex-row items-center justify-center gap-6 pt-6">
+                        <Link href="/shop" className="w-full md:w-auto">
+                            <Button size="lg" className="px-16 py-8 text-xl rounded-full shadow-[0_20px_50px_rgba(197,137,14,0.3)] bg-[#c5890e] hover:bg-[#a6740c]">
+                                Start Snacking
+                            </Button>
                         </Link>
-                        <Link href="/about">
-                            <Button variant="outline" size="lg" className="px-12">Our Story</Button>
+                        <Link href="/story" className="w-full md:w-auto">
+                            <Button variant="outline" size="lg" className="px-16 py-8 text-xl rounded-full border-2 hover:bg-black hover:text-white transition-all">
+                                Our Story
+                            </Button>
                         </Link>
                     </div>
                 </motion.div>
@@ -75,10 +102,10 @@ export default function Hero() {
             <motion.div
                 style={{ x: '-50%' }}
                 animate={{ x: '0%' }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                className="absolute bottom-10 left-0 whitespace-nowrap text-[12vw] font-black opacity-[0.02] select-none pointer-events-none"
+                transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+                className="absolute bottom-10 left-0 whitespace-nowrap text-[12vw] font-black opacity-[0.03] select-none pointer-events-none italic"
             >
-                MIXTURES • MILLET BITES • BAKED TREATS • PURE HYGIENE • WOMEN EMPOWERMENT •
+                CRUNCHY MIXTURES • TRADITIONAL MURUKKU • HEALTHY MILLET BITES • BAKED NAMAKPARA •
             </motion.div>
         </section>
     );
