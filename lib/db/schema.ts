@@ -1,4 +1,4 @@
-import { pgTable, serial, varchar, text, decimal, boolean, timestamp, jsonb, date } from 'drizzle-orm/pg-core';
+import { pgTable, serial, varchar, text, decimal, boolean, timestamp, jsonb, date, integer } from 'drizzle-orm/pg-core';
 
 export const categories = pgTable('categories', {
     id: serial('id').primaryKey(),
@@ -9,13 +9,13 @@ export const categories = pgTable('categories', {
 
 export const products = pgTable('products', {
     id: serial('id').primaryKey(),
-    name: varchar('name').notNull(),
+    name: varchar('name', { length: 255 }).notNull(),
     slug: text('slug').unique().notNull(),
-    categoryId: serial('category_id').references(() => categories.id),
+    categoryId: integer('category_id').references(() => categories.id),
     description: text('description').notNull(),
     price: decimal('price', { precision: 10, scale: 2 }).notNull(),
     offer: boolean('offer').default(false).notNull(),
-    stock: serial('stock').notNull(),
+    stock: integer('stock').notNull(),
     images: text('images').array().notNull(),
     createdAt: timestamp('created_at').defaultNow().notNull(),
 });
