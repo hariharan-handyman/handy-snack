@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShoppingCart, Heart, Search, Menu, X } from 'lucide-react';
+import { ShoppingBag, Heart, Search, Menu, X, User } from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { useCart } from '@/context/CartContext';
@@ -12,6 +12,13 @@ import { useCart } from '@/context/CartContext';
 function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs));
 }
+
+const navLinks = [
+    { name: 'Shop All', href: '/shop' },
+    { name: 'New Arrivals', href: '/shop?sort=newest' },
+    { name: 'Best Sellers', href: '/shop?sort=popular' },
+    { name: 'Our Story', href: '/story' },
+];
 
 export default function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -21,119 +28,145 @@ export default function Navbar() {
     const pathname = usePathname();
 
     useEffect(() => {
-        const handleScroll = () => {
-            setIsScrolled(window.scrollY > 20);
-        };
+        const handleScroll = () => setIsScrolled(window.scrollY > 50);
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    // Track favorites count
     useEffect(() => {
         const updateFavCount = () => {
             const favs = JSON.parse(localStorage.getItem('hm-favs') || '[]');
             setFavCount(favs.length);
         };
-
         updateFavCount();
         window.addEventListener('favoritesChanged', updateFavCount);
-
         return () => window.removeEventListener('favoritesChanged', updateFavCount);
     }, []);
-
-    const navLinks = [
-        { name: 'Home', href: '/' },
-        { name: 'Shop', href: '/shop' },
-        { name: 'Our Story', href: '/story' },
-    ];
 
     return (
         <motion.nav
             initial={{ y: -100 }}
             animate={{ y: 0 }}
             className={cn(
-                'fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b',
-                isScrolled ? 'bg-white/80 backdrop-blur-lg py-4 border-primary/20 shadow-lg' : 'bg-transparent py-6 border-transparent'
+                'fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white border-b border-gray-100',
+                isScrolled ? 'py-0' : 'py-2'
             )}
         >
-            <div className="container mx-auto px-6 flex items-center justify-between">
-                <Link href="/" className="hover:scale-105 transition-transform flex items-center gap-2">
-                    <div className="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-xl flex items-center justify-center shadow-lg">
-                        <span className="text-white font-black italic">HM</span>
-                    </div>
-                    <span className="text-2xl font-black italic tracking-tighter text-dark">HANDYMAN</span>
-                </Link>
+            {/* Announcement Bar */}
+            <div className="bg-black text-[9px] font-bold text-white py-2 text-center uppercase tracking-[0.3em]">
+                Free Shipping on Orders Above ₹999
+            </div>
 
-                {/* Desktop Nav */}
-                <div className="hidden md:flex items-center space-x-10">
+            <div className="container mx-auto px-6">
+                {/* Main Header Row */}
+                <div className="flex items-center justify-between h-24">
+                    {/* Left: Search (Desktop) / Menu (Mobile) */}
+                    <div className="flex items-center w-1/3">
+                        <button className="hidden md:flex items-center gap-3 text-dark/30 hover:text-dark transition-colors">
+                            <Search size={18} />
+                            <span className="text-[10px] font-bold uppercase tracking-widest">Search</span>
+                        </button>
+                        <button
+                            className="md:hidden text-dark"
+                            onClick={() => setIsMobileMenuOpen(true)}
+                        >
+                            <Menu size={24} />
+                        </button>
+                    </div>
+
+                    {/* Center: Logo (Always Centered) */}
+                    <div className="flex justify-center flex-1 md:flex-none md:w-1/3">
+                        <Link href="/" className="flex flex-col items-center group">
+                            <span className="text-3xl md:text-4xl font-black tracking-[-0.1em] text-dark uppercase flex flex-col items-center leading-none text-center">
+                                <span className="text-[10px] tracking-[0.4em] mb-2 text-accent">Handyman</span>
+                                <span>Technologies</span>
+                            </span>
+                        </Link>
+                    </div>
+
+                    {/* Right: Icons */}
+                    <div className="flex items-center justify-end w-1/3 gap-4 md:gap-8">
+                        <Link href="/favs" className="hidden md:flex text-dark/40 hover:text-dark transition-colors relative">
+                            <Heart size={20} />
+                            {favCount > 0 && (
+                                <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-accent text-white text-[8px] font-bold rounded-full flex items-center justify-center animate-pulse">
+                                    {favCount}
+                                </span>
+                            )}
+                        </Link>
+                        <Link href="/cart" className="text-dark hover:text-accent transition-colors relative group flex items-center gap-2">
+                            <ShoppingBag size={22} />
+                            <span className="hidden md:block text-[10px] font-bold uppercase tracking-widest">Cart ({cart.length})</span>
+                            <span className="md:hidden absolute -top-1.5 -right-1.5 bg-black text-white text-[8px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                                {cart.length}
+                            </span>
+                        </Link>
+                        <Link href="/login" className="hidden md:block text-dark/40 hover:text-dark transition-colors">
+                            <User size={20} />
+                        </Link>
+                    </div>
+                </div>
+
+                {/* Secondary Navigation Row (Desktop Only) */}
+                <div className="hidden md:flex items-center justify-center gap-16 h-12 border-t border-gray-50">
                     {navLinks.map((link) => (
                         <Link
                             key={link.name}
                             href={link.href}
                             className={cn(
-                                'text-sm font-bold tracking-tight hover:text-primary transition-colors relative group',
-                                pathname === link.href ? 'text-secondary' : 'text-dark/70'
+                                'text-[10px] font-bold uppercase tracking-[0.4em] transition-all relative pb-1 group',
+                                pathname === link.href ? 'text-dark' : 'text-dark/30 hover:text-dark'
                             )}
                         >
                             {link.name}
-                            <motion.span
-                                className="absolute -bottom-2 left-0 w-0 h-1 bg-gradient-to-r from-primary to-secondary rounded-full transition-all group-hover:w-full"
-                                layoutId={pathname === link.href ? 'underline' : undefined}
-                            />
+                            <span className={cn(
+                                "absolute bottom-0 left-0 h-[2px] bg-dark transition-all duration-300",
+                                pathname === link.href ? "w-full" : "w-0 group-hover:w-full"
+                            )} />
                         </Link>
                     ))}
                 </div>
-
-                {/* Icons */}
-                <div className="flex items-center space-x-6">
-                    <button className="w-10 h-10 rounded-full hover:bg-primary/10 flex items-center justify-center transition-colors">
-                        <Search size={20} className="text-dark" />
-                    </button>
-                    <Link href="/favs" className="w-10 h-10 rounded-full hover:bg-primary/10 flex items-center justify-center transition-colors relative group">
-                        <Heart size={20} className="text-dark group-hover:text-primary transition-colors" />
-                        {favCount > 0 && (
-                            <span className="absolute top-1 right-1 bg-primary text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold animate-bounce">
-                                {favCount}
-                            </span>
-                        )}
-                    </Link>
-                    <Link href="/cart" className="w-12 h-12 rounded-2xl bg-dark text-white flex items-center justify-center shadow-xl hover:bg-secondary transition-all relative">
-                        <ShoppingCart size={20} />
-                        {cart.length > 0 && (
-                            <span className="absolute -top-1 -right-1 bg-primary text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold border-2 border-white">
-                                {cart.length}
-                            </span>
-                        )}
-                    </Link>
-                    <button
-                        className="md:hidden w-10 h-10 flex items-center justify-center"
-                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                    >
-                        {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-                    </button>
-                </div>
             </div>
 
-            {/* Mobile Menu */}
+            {/* Mobile Menu Overlay */}
             <AnimatePresence>
                 {isMobileMenuOpen && (
                     <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        exit={{ opacity: 0, height: 0 }}
-                        className="md:hidden bg-white border-t border-black/5 overflow-hidden"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 bg-white z-[100] flex flex-col"
                     >
-                        <div className="flex flex-col p-4 space-y-4">
-                            {navLinks.map((link) => (
-                                <Link
+                        <div className="p-10 flex justify-between items-center bg-gray-50">
+                            <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-accent">Menu</span>
+                            <button onClick={() => setIsMobileMenuOpen(false)} className="w-12 h-12 rounded-full flex items-center justify-center bg-white shadow-xl">
+                                <X size={24} />
+                            </button>
+                        </div>
+                        <div className="flex-1 overflow-y-auto p-12 space-y-12">
+                            {navLinks.map((link, idx) => (
+                                <motion.div
                                     key={link.name}
-                                    href={link.href}
-                                    onClick={() => setIsMobileMenuOpen(false)}
-                                    className="text-lg font-medium"
+                                    initial={{ opacity: 0, x: -20 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: idx * 0.1 }}
                                 >
-                                    {link.name}
-                                </Link>
+                                    <Link
+                                        href={link.href}
+                                        onClick={() => setIsMobileMenuOpen(false)}
+                                        className="text-5xl font-black uppercase tracking-tighter hover:text-accent transition-colors block"
+                                    >
+                                        {link.name}
+                                    </Link>
+                                </motion.div>
                             ))}
+                            <div className="pt-12 border-t border-gray-100 grid grid-cols-2 gap-8">
+                                <Link href="/favs" onClick={() => setIsMobileMenuOpen(false)} className="text-[10px] font-bold uppercase tracking-widest text-dark/40">Wishlist ({favCount})</Link>
+                                <Link href="/login" onClick={() => setIsMobileMenuOpen(false)} className="text-[10px] font-bold uppercase tracking-widest text-dark/40">Account</Link>
+                            </div>
+                        </div>
+                        <div className="p-10 border-t border-gray-100 flex justify-center">
+                            <p className="text-[9px] font-bold uppercase tracking-[0.3em] text-dark/10">Handyman Technologies &copy; 2024</p>
                         </div>
                     </motion.div>
                 )}

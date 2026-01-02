@@ -2,114 +2,75 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/Button';
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
 
 export default function Hero() {
     return (
-        <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white">
-            {/* Vibrant Background Glows */}
-            <div className="absolute top-0 left-0 w-[50vw] h-[50vw] bg-primary/20 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2 animate-pulse" />
-            <div className="absolute bottom-0 right-0 w-[40vw] h-[40vw] bg-secondary/20 rounded-full blur-[100px] translate-x-1/2 translate-y-1/2 animate-pulse" style={{ animationDelay: '2s' }} />
-            <div className="absolute top-1/2 left-1/2 w-[30vw] h-[30vw] bg-accent/10 rounded-full blur-[80px] -translate-x-1/2 -translate-y-1/2" />
+        <section className="relative min-h-[90vh] flex items-center justify-center pt-32 pb-20 overflow-hidden bg-white">
+            <div className="container mx-auto px-6 flex flex-col items-center text-center space-y-16">
+                {/* Text Content */}
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8 }}
+                    className="max-w-4xl space-y-12"
+                >
+                    <div className="space-y-6">
+                        <motion.span
+                            initial={{ opacity: 0, tracking: '0.1em' }}
+                            animate={{ opacity: 1, tracking: '0.4em' }}
+                            transition={{ duration: 1 }}
+                            className="text-[10px] font-bold uppercase text-accent"
+                        >
+                            Handmade Excellence
+                        </motion.span>
+                        <h1 className="text-7xl md:text-[9.5rem] font-extrabold leading-[0.8] tracking-[-0.05em] uppercase text-dark">
+                            Purity <span className="text-gray-100">Defined.</span>
+                        </h1>
+                    </div>
 
-            {/* Floating Snacks - Modern Style */}
-            <div className="absolute inset-0 pointer-events-none z-10 overflow-hidden">
-                {[...Array(8)].map((_, i) => (
-                    <motion.div
-                        key={i}
-                        initial={{ opacity: 0, scale: 0.5 }}
-                        animate={{
-                            opacity: [0.3, 0.6, 0.3],
-                            y: [0, -40, 0],
-                            rotate: [0, 10, -10, 0],
-                            scale: [1, 1.1, 1]
-                        }}
-                        transition={{
-                            duration: 8 + i * 2,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                            delay: i * 0.5
-                        }}
-                        className="absolute hidden lg:block"
-                        style={{
-                            top: `${15 + (i * 12)}%`,
-                            left: i % 2 === 0 ? `${5 + (i * 3)}%` : 'auto',
-                            right: i % 2 !== 0 ? `${5 + (i * 3)}%` : 'auto',
-                        }}
-                    >
-                        <div className="w-24 h-24 bg-gradient-to-br from-white/20 to-white/5 backdrop-blur-sm rounded-3xl border border-white/20 shadow-2xl flex items-center justify-center p-4">
-                            <img
-                                src={i % 2 === 0 ? "/snack-bowl-mixture.png" : "/snack-chakli.png"}
-                                alt="Snack"
-                                className="w-full h-full object-contain filter drop-shadow-lg"
-                            />
-                        </div>
-                    </motion.div>
-                ))}
+                    <p className="text-sm md:text-base font-bold uppercase tracking-[0.2em] text-dark/40 max-w-2xl mx-auto leading-loose">
+                        Discover the essence of authentic Indian snacks. <br className="hidden md:block" />
+                        Preserving tradition, crafted for the modern palate.
+                    </p>
+
+                    <div className="flex flex-col md:flex-row items-center justify-center gap-8 pt-6">
+                        <Link href="/shop" className="w-full md:w-auto h-16 px-16 bg-black text-white text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-accent transition-all shadow-2xl flex items-center justify-center">
+                            Shop Collection
+                        </Link>
+                        <Link href="/story" className="text-[10px] font-bold uppercase tracking-[0.2em] text-dark/40 hover:text-dark border-b border-dark/10 pb-2 transition-all">
+                            Our Story
+                        </Link>
+                    </div>
+                </motion.div>
+
+                {/* Hero Image - Centered and Bordered */}
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 1, delay: 0.2 }}
+                    className="relative w-full max-w-5xl aspect-[21/9] bg-gray-50 overflow-hidden border border-gray-100"
+                >
+                    <img
+                        src="/snack-bowl-mixture.png"
+                        alt="Premium Snacks"
+                        className="w-full h-full object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-700"
+                    />
+                    <div className="absolute inset-0 bg-black/5" />
+                </motion.div>
             </div>
 
-            <div className="container mx-auto px-6 relative z-20">
-                <div className="flex flex-col items-center text-center space-y-12">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6 }}
-                        className="space-y-4"
-                    >
-                        <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-primary/10 border border-primary/20 backdrop-blur-sm shadow-sm group">
-                            <span className="w-2 h-2 rounded-full bg-primary animate-ping" />
-                            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-secondary">New Taste Sensation</span>
-                        </div>
-                        <h1 className="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter leading-[0.85] text-dark italic italic-accent">
-                            CRUNCHY <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-accent drop-shadow-sm">MAGIC.</span>
-                        </h1>
-                    </motion.div>
-
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
-                        className="text-lg md:text-xl text-dark/70 font-bold max-w-2xl mx-auto leading-normal"
-                    >
-                        Pure handmade joy delivered to your doorstep.
-                        Experience the heritage of taste redefined for the modern snacker.
-                    </motion.p>
-
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.4 }}
-                        className="flex flex-col sm:flex-row items-center gap-6"
-                    >
-                        <Link href="/shop" className="w-full sm:w-auto">
-                            <Button size="lg" className="h-16 px-12 text-sm font-black rounded-2xl bg-dark text-white hover:bg-primary transition-all shadow-[0_20px_40px_rgba(0,0,0,0.15)] group relative overflow-hidden">
-                                <span className="relative z-10 flex items-center gap-3">
-                                    SHOP NOW <ArrowRight className="group-hover:translate-x-2 transition-transform" />
-                                </span>
-                            </Button>
-                        </Link>
-                        <Link href="/story" className="w-full sm:w-auto">
-                            <Button variant="ghost" size="lg" className="h-16 px-12 text-sm font-black rounded-2xl border-2 border-dark/10 text-dark hover:border-secondary transition-all">
-                                OUR STORY
-                            </Button>
-                        </Link>
-                    </motion.div>
+            {/* Background Texture/Accents */}
+            <div className="absolute bottom-10 left-10 hidden lg:block">
+                <div className="flex items-center gap-4 text-[9px] font-bold uppercase tracking-[0.3em] text-dark/10 vertical-text pb-40">
+                    Est. 2024 / Handyman Tech
                 </div>
             </div>
 
-            {/* Decorative Side Text */}
-            <div className="absolute bottom-12 left-0 right-0 overflow-hidden pointer-events-none opacity-5">
-                <motion.div
-                    animate={{ x: [0, -1000] }}
-                    transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-                    className="flex gap-20 whitespace-nowrap text-[120px] font-black italic tracking-tighter"
-                >
-                    <span>MURUKKU • MIXTURE • CHIPS • COOKIES • MILLET BITES • SEV • PAKODA •</span>
-                    <span>MURUKKU • MIXTURE • CHIPS • COOKIES • MILLET BITES • SEV • PAKODA •</span>
-                </motion.div>
+            <div className="absolute top-1/2 right-10 -translate-y-1/2 hidden lg:block">
+                <div className="flex items-center gap-4 text-[9px] font-bold uppercase tracking-[0.3em] text-dark/10 vertical-text pt-40 rotate-180">
+                    Traditional Indian Craft
+                </div>
             </div>
         </section>
     );

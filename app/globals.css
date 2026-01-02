@@ -1,18 +1,17 @@
 @import "tailwindcss";
 
 @theme {
-  /* Vibrant Modern Palette */
+  /* Professional Minimalist Palette */
   --color-background: #FFFFFF;
-  --color-foreground: #2d3436;
-  --color-primary: #FF9FF3;
-  --color-secondary: #6C5CE7;
-  --color-accent: #00D2D3;
-  --color-pink-light: #FFB7F1;
-  --color-purple-light: #ECC2FF;
-  --color-cyan-light: #74E2F1;
-  --color-dark: #2d3436;
+  --color-foreground: #1A1A1A;
+  --color-primary: #1A1A1A;
+  --color-secondary: #4A5568;
+  --color-accent: #C5890E;
+  --color-muted: #F7F7F7;
+  --color-border: #E2E8F0;
+  --color-dark: #1A1A1A;
 
-  --font-sans: "Inter", sans-serif;
+  --font-sans: "Outfit", "Inter", sans-serif;
 }
 
 

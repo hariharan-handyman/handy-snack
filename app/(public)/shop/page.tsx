@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ProductCard from '@/components/shop/ProductCard';
@@ -16,34 +16,52 @@ const MOCK_PRODUCTS = [
     { id: 6, name: 'Oats Cookies', price: 300, category: 'Baked', slug: 'oats-cookies', image: '' },
 ];
 
+import { getProducts, getCategories } from '@/lib/actions';
+
 export default function ShopPage() {
     const [search, setSearch] = useState('');
     const [activeCategory, setActiveCategory] = useState('All');
+    const [products, setProducts] = useState<any[]>([]);
+    const [categories, setCategories] = useState<any[]>([]);
+    const [loading, setLoading] = useState(true);
 
-    const filteredProducts = MOCK_PRODUCTS.filter(p => {
+    useEffect(() => {
+        const loadData = async () => {
+            setLoading(true);
+            try {
+                const [prods, cats] = await Promise.all([
+                    getProducts(),
+                    getCategories()
+                ]);
+                setProducts(prods);
+                setCategories(cats);
+            } catch (error) {
+                console.error('Error loading shop data:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        loadData();
+    }, []);
+
+    const filteredProducts = products.filter(p => {
         const matchesSearch = p.name.toLowerCase().includes(search.toLowerCase());
-        const matchesCategory = activeCategory === 'All' || p.category === activeCategory;
+        const categorySlug = categories.find(c => c.id === p.categoryId)?.name || 'All';
+        const matchesCategory = activeCategory === 'All' || categorySlug === activeCategory;
         return matchesSearch && matchesCategory;
     });
 
     return (
-        <main className="min-h-screen bg-white relative overflow-hidden">
+        <main className="min-h-screen bg-white relative">
             <Navbar />
 
-            {/* Background Glows */}
-            <div className="absolute top-0 right-0 w-[40vw] h-[40vw] bg-primary/5 rounded-full blur-[120px] translate-x-1/4 -translate-y-1/4" />
-            <div className="absolute bottom-0 left-0 w-[30vw] h-[30vw] bg-accent/5 rounded-full blur-[100px] -translate-x-1/4 translate-y-1/4" />
-
-            <section className="pt-40 pb-32 relative z-10">
+            <section className="pt-40 pb-32">
                 <div className="container mx-auto px-6">
-                    <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-12 mb-24">
-                        <div className="space-y-6 max-w-2xl">
-                            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20">
-                                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Discover Excellence</span>
-                            </div>
-                            <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-none text-dark italic">
-                                THE <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">SNACK</span> <br />
-                                <span className="text-dark/20">SHOP.</span>
+                    <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-12 mb-20 border-b border-gray-100 pb-12">
+                        <div className="space-y-4 max-w-2xl">
+                            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-accent">Professional Selection</span>
+                            <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-dark leading-none uppercase">
+                                Our <span className="text-accent">Collection.</span>
                             </h1>
                         </div>
 
@@ -53,37 +71,39 @@ export default function ShopPage() {
                                 setSearch={setSearch}
                                 activeCategory={activeCategory}
                                 setActiveCategory={setActiveCategory}
+                                categories={['All', ...categories.map(c => c.name)]}
                             />
                         </div>
                     </div>
 
-                    <motion.div
-                        layout
-                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 lg:gap-12"
-                    >
-                        {filteredProducts.map((prod) => (
-                            <ProductCard key={prod.id} product={prod} />
-                        ))}
-                    </motion.div>
-
-                    {filteredProducts.length === 0 && (
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            className="py-40 text-center"
-                        >
-                            <div className="w-24 h-24 bg-dark/5 rounded-full flex items-center justify-center mx-auto mb-6">
-                                <span className="text-4xl">🔍</span>
-                            </div>
-                            <h3 className="text-2xl font-black text-dark/30 italic uppercase tracking-tighter">No snacks found.</h3>
-                            <p className="text-dark/40 font-bold mt-2">Try adjusting your filters or search term.</p>
-                            <button
-                                onClick={() => { setSearch(''); setActiveCategory('All'); }}
-                                className="mt-8 text-sm font-black text-primary hover:text-secondary uppercase tracking-widest underline underline-offset-8"
+                    {loading ? (
+                        <div className="py-40 text-center space-y-4">
+                            <div className="w-10 h-10 border-2 border-dark border-t-accent rounded-full animate-spin mx-auto" />
+                            <p className="text-[10px] font-bold uppercase tracking-widest text-dark/30">Syncing Collection...</p>
+                        </div>
+                    ) : (
+                        <>
+                            <motion.div
+                                layout
+                                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12"
                             >
-                                Reset All Filters
-                            </button>
-                        </motion.div>
+                                {filteredProducts.map((prod) => (
+                                    <ProductCard key={prod.id} product={prod} />
+                                ))}
+                            </motion.div>
+
+                            {filteredProducts.length === 0 && (
+                                <div className="py-40 text-center">
+                                    <h3 className="text-xl font-bold text-dark/20 uppercase tracking-widest">No products found.</h3>
+                                    <button
+                                        onClick={() => { setSearch(''); setActiveCategory('All'); }}
+                                        className="mt-6 text-[10px] font-bold text-accent uppercase tracking-widest border-b border-accent pb-1"
+                                    >
+                                        Clear search
+                                    </button>
+                                </div>
+                            )}
+                        </>
                     )}
                 </div>
             </section>

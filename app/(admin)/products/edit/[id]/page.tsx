@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/Button';
 import { updateProduct, getProduct, getCategories } from '@/lib/actions';
 import { useRouter } from 'next/navigation';
+import ImageUpload from '@/components/admin/ImageUpload';
 
 export default function EditProductPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = use(params);
@@ -12,6 +13,7 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
     const [categories, setCategories] = useState<any[]>([]);
     const [loading, setLoading] = useState(false);
     const [fetching, setFetching] = useState(true);
+    const [images, setImages] = useState<string[]>([]);
     const router = useRouter();
 
     useEffect(() => {
@@ -34,19 +36,23 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
                 setValue('price', product.price);
                 setValue('stock', product.stock);
                 setValue('description', product.description);
+                setImages(product.images || []);
             }
         } catch (error) {
             console.error('Error fetching product:', error);
-            alert('Error loading product data');
         } finally {
             setFetching(false);
         }
     }
 
     const onSubmit = async (data: any) => {
+        if (images.length === 0) {
+            alert('Please upload at least one image.');
+            return;
+        }
+
         setLoading(true);
         try {
-            // Generate slug from name
             const slug = data.name.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
 
             await updateProduct(parseInt(id), {
@@ -56,12 +62,13 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
                 description: data.description,
                 price: data.price.toString(),
                 stock: parseInt(data.stock),
+                images: images
             });
             alert('Product updated successfully!');
             router.push('/products');
         } catch (error) {
             console.error('Error updating product:', error);
-            alert('Failed to update product. Please try again.');
+            alert('Failed to update product.');
         } finally {
             setLoading(false);
         }
@@ -70,57 +77,87 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
     if (fetching) {
         return (
             <div className="py-40 text-center space-y-4">
-                <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto" />
-                <p className="text-[10px] font-black uppercase tracking-widest text-dark/30">Loading product details...</p>
+                <div className="w-10 h-10 border-2 border-dark border-t-accent rounded-full animate-spin mx-auto" />
+                <p className="text-[10px] font-bold uppercase tracking-widest text-dark/30">Syncing Details...</p>
             </div>
         );
     }
 
     return (
-        <div className="max-w-4xl mx-auto space-y-16">
-            <div className="space-y-4">
-                <span className="text-sm font-black uppercase tracking-widest opacity-30 italic">Editor</span>
-                <h1 className="text-6xl font-black tracking-tighter italic">EDIT PRODUCT</h1>
+        <div className="max-w-5xl mx-auto space-y-12 pb-20">
+            <div className="flex justify-between items-end border-b border-gray-100 pb-8">
+                <div className="space-y-2">
+                    <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-accent">Inventory Management</span>
+                    <h1 className="text-5xl font-bold tracking-tight text-dark uppercase">Edit <span className="text-accent underline underline-offset-8">Product.</span></h1>
+                </div>
             </div>
 
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-10 bg-black/5 p-16 rounded-[4rem] border border-black/5">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                    <div className="space-y-2">
-                        <label className="text-[10px] font-black uppercase tracking-widest opacity-40">Product Name</label>
-                        <input {...register('name', { required: true })} className="w-full bg-white border-none rounded-2xl py-4 px-6 focus:ring-2 focus:ring-black outline-none font-medium" />
-                    </div>
+            <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                <div className="lg:col-span-2 space-y-8">
+                    <div className="bg-white p-10 rounded-3xl border border-gray-100 shadow-sm space-y-8 text-black">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div className="space-y-3">
+                                <label className="text-[10px] font-bold uppercase tracking-widest text-dark/40">Product Name</label>
+                                <input
+                                    {...register('name', { required: true })}
+                                    className="w-full bg-gray-50 border border-gray-100 rounded-xl py-4 px-6 focus:ring-2 focus:ring-accent/20 outline-none font-bold text-sm transition-all"
+                                />
+                            </div>
 
-                    <div className="space-y-2">
-                        <label className="text-[10px] font-black uppercase tracking-widest opacity-40">Category</label>
-                        <select {...register('categoryId', { required: true })} className="w-full bg-white border-none rounded-2xl py-4 px-6 focus:ring-2 focus:ring-black outline-none font-medium">
-                            <option value="">Select Category</option>
-                            {categories.map(cat => (
-                                <option key={cat.id} value={cat.id}>{cat.name}</option>
-                            ))}
-                        </select>
-                    </div>
+                            <div className="space-y-3">
+                                <label className="text-[10px] font-bold uppercase tracking-widest text-dark/40">Category</label>
+                                <select
+                                    {...register('categoryId', { required: true })}
+                                    className="w-full bg-gray-50 border border-gray-100 rounded-xl py-4 px-6 focus:ring-2 focus:ring-accent/20 outline-none font-bold text-sm transition-all"
+                                >
+                                    {categories.map(cat => (
+                                        <option key={cat.id} value={cat.id}>{cat.name}</option>
+                                    ))}
+                                </select>
+                            </div>
 
-                    <div className="space-y-2">
-                        <label className="text-[10px] font-black uppercase tracking-widest opacity-40">Price per KG (₹)</label>
-                        <input {...register('price', { required: true })} type="number" step="0.01" className="w-full bg-white border-none rounded-2xl py-4 px-6 focus:ring-2 focus:ring-black outline-none font-medium" />
-                    </div>
+                            <div className="space-y-3">
+                                <label className="text-[10px] font-bold uppercase tracking-widest text-dark/40">Price (₹)</label>
+                                <input
+                                    {...register('price', { required: true })}
+                                    type="number"
+                                    step="0.01"
+                                    className="w-full bg-gray-50 border border-gray-100 rounded-xl py-4 px-6 focus:ring-2 focus:ring-accent/20 outline-none font-bold text-sm transition-all"
+                                />
+                            </div>
 
-                    <div className="space-y-2">
-                        <label className="text-[10px] font-black uppercase tracking-widest opacity-40">Stock (KG)</label>
-                        <input {...register('stock', { required: true })} type="number" step="1" className="w-full bg-white border-none rounded-2xl py-4 px-6 focus:ring-2 focus:ring-black outline-none font-medium" />
-                    </div>
+                            <div className="space-y-3">
+                                <label className="text-[10px] font-bold uppercase tracking-widest text-dark/40">In Stock (Units)</label>
+                                <input
+                                    {...register('stock', { required: true })}
+                                    type="number"
+                                    className="w-full bg-gray-50 border border-gray-100 rounded-xl py-4 px-6 focus:ring-2 focus:ring-accent/20 outline-none font-bold text-sm transition-all"
+                                />
+                            </div>
+                        </div>
 
-                    <div className="md:col-span-2 space-y-2">
-                        <label className="text-[10px] font-black uppercase tracking-widest opacity-40">Description</label>
-                        <textarea {...register('description')} className="w-full bg-white border-none rounded-[2rem] py-4 px-6 focus:ring-2 focus:ring-black outline-none font-medium min-h-[150px]" />
+                        <div className="space-y-3 text-black">
+                            <label className="text-[10px] font-bold uppercase tracking-widest text-dark/40">Description</label>
+                            <textarea
+                                {...register('description')}
+                                className="w-full bg-gray-50 border border-gray-100 rounded-2xl py-4 px-6 focus:ring-2 focus:ring-accent/20 outline-none font-bold text-sm min-h-[200px] transition-all"
+                            />
+                        </div>
                     </div>
                 </div>
 
-                <div className="pt-8 flex gap-4">
-                    <Button type="submit" size="lg" className="flex-1 shadow-2xl" disabled={loading}>
-                        {loading ? 'Saving...' : 'Update Product'}
-                    </Button>
-                    <Button type="button" variant="outline" size="lg" onClick={() => router.back()}>Cancel</Button>
+                <div className="space-y-8">
+                    <div className="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm space-y-6">
+                        <label className="text-[10px] font-bold uppercase tracking-widest text-dark/40">Media Assets</label>
+                        <ImageUpload value={images} onChange={setImages} />
+                    </div>
+
+                    <div className="space-y-4">
+                        <Button type="submit" size="lg" className="h-16 w-full rounded-2xl bg-dark text-white hover:bg-accent transition-all shadow-xl font-bold uppercase tracking-widest text-[10px]" disabled={loading}>
+                            {loading ? 'Processing...' : 'Save Changes'}
+                        </Button>
+                        <Button type="button" variant="ghost" className="w-full font-bold text-dark/40 hover:text-dark uppercase tracking-widest text-[9px]" onClick={() => router.back()}>Discard Changes</Button>
+                    </div>
                 </div>
             </form>
         </div>

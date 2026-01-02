@@ -65,5 +65,12 @@ export async function getOrders() {
 export async function createOrder(data: any) {
     const res = await db.insert(orders).values(data).returning();
     revalidatePath('/dashboard');
+    revalidatePath('/orders');
     return res[0];
+}
+
+export async function deleteOrder(id: number) {
+    await db.delete(orders).where(eq(orders.id, id));
+    revalidatePath('/dashboard');
+    revalidatePath('/orders');
 }

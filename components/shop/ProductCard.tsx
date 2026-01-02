@@ -48,76 +48,67 @@ export default function ProductCard({ product }: { product: any }) {
             layout
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            whileHover={{ y: -8 }}
-            className="group relative bg-white rounded-[2rem] p-4 border border-dark/5 shadow-sm hover:shadow-2xl transition-all duration-500"
+            className="group relative bg-white transition-all duration-500 overflow-hidden"
         >
-            <div className="relative aspect-[4/5] rounded-[1.5rem] bg-gradient-to-br from-primary/5 to-secondary/5 overflow-hidden mb-6">
-                {/* Antigravity floating on hover */}
+            <div className="relative aspect-[4/5] bg-gray-50 overflow-hidden mb-6">
+                {/* Product Image Placeholder (ImageKit will be here) */}
                 <motion.div
-                    whileHover={{ y: -10, rotate: 2, scale: 1.05 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                    className="w-full h-full p-8 flex items-center justify-center relative z-10"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.6 }}
+                    className="w-full h-full flex items-center justify-center relative z-10"
                 >
-                    <div className="w-full h-full bg-white/40 backdrop-blur-sm rounded-2xl flex items-center justify-center shadow-inner border border-white/50">
-                        <span className="text-dark/20 font-black text-2xl italic uppercase tracking-tighter rotate-[-10deg]">
-                            {product.category}
+                    <div className="w-full h-full bg-gray-50 flex items-center justify-center">
+                        <span className="text-dark/5 font-black text-4xl uppercase tracking-[0.2em] rotate-[-15deg] select-none">
+                            Premium
                         </span>
                     </div>
                 </motion.div>
 
-                {/* Status Badge */}
-                <div className="absolute top-4 left-4 z-20">
-                    <span className="px-3 py-1 bg-white/80 backdrop-blur-md border border-white text-[9px] font-black uppercase tracking-widest text-dark rounded-full shadow-sm">
-                        {product.category}
-                    </span>
-                </div>
-
-                {/* Quick Actions */}
-                <div className="absolute top-4 right-4 flex flex-col gap-2 z-20 opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0 transition-all duration-300">
+                {/* Quick Actions - Floating Hover */}
+                <div className="absolute top-6 right-6 flex flex-col gap-3 z-20 opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0 transition-all duration-400">
                     <button
                         onClick={toggleFavorite}
                         className={cn(
-                            "w-10 h-10 rounded-xl flex items-center justify-center transition-all shadow-lg backdrop-blur-md border",
-                            isFavorite ? "bg-primary border-primary text-white" : "bg-white/80 border-white text-dark hover:bg-primary hover:text-white"
+                            "w-12 h-12 rounded-full flex items-center justify-center transition-all bg-white shadow-xl border border-gray-100",
+                            isFavorite ? "text-accent" : "text-dark/40 hover:text-accent"
                         )}
                     >
-                        <Heart size={18} fill={isFavorite ? "currentColor" : "none"} />
+                        <Heart size={20} fill={isFavorite ? "currentColor" : "none"} />
                     </button>
-                    <button className="w-10 h-10 rounded-xl bg-white/80 border border-white text-dark flex items-center justify-center shadow-lg backdrop-blur-md hover:bg-secondary hover:text-white transition-all">
-                        <Share2 size={18} />
+                    <button className="w-12 h-12 rounded-full bg-white border border-gray-100 text-dark/40 flex items-center justify-center shadow-xl hover:text-dark transition-all">
+                        <Share2 size={20} />
                     </button>
-                </div>
-
-                {/* Add to Cart Overlay */}
-                <div className="absolute inset-x-4 bottom-4 z-20 translate-y-12 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
                     <button
                         onClick={handleAddToCart}
-                        className="w-full h-12 bg-dark text-white rounded-xl font-black text-xs uppercase tracking-widest shadow-xl hover:bg-accent flex items-center justify-center gap-2 transition-all"
+                        className="w-12 h-12 rounded-full bg-black text-white flex items-center justify-center shadow-xl hover:bg-accent transition-all"
                     >
-                        <ShoppingCart size={16} /> Add to Cart
+                        <ShoppingCart size={20} />
                     </button>
                 </div>
+
+                {/* Sale Badge */}
+                {product.offer && (
+                    <div className="absolute top-6 left-6 z-20">
+                        <span className="px-4 py-1.5 bg-accent text-white text-[9px] font-bold uppercase tracking-[0.2em]">
+                            Best Offer
+                        </span>
+                    </div>
+                )}
             </div>
 
-            <div className="px-2 pb-2 space-y-3">
-                <div className="flex justify-between items-start">
-                    <Link href={`/shop/${product.slug}`} className="group/title">
-                        <h3 className="text-lg font-black tracking-tight text-dark group-hover/title:text-primary transition-colors leading-tight">
+            <div className="space-y-4 pb-12 text-center">
+                <div className="space-y-2">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-dark/20">{product.category}</p>
+                    <Link href={`/shop/${product.slug}`}>
+                        <h3 className="text-sm font-extrabold uppercase tracking-[0.2em] text-dark hover:text-accent transition-colors px-4">
                             {product.name}
                         </h3>
                     </Link>
                 </div>
 
-                <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-1">
-                        <span className="text-xl font-black text-dark">₹{product.price}</span>
-                        <span className="text-[10px] font-bold text-dark/30 uppercase tracking-widest mt-1">/ KG</span>
-                    </div>
-                    {product.offer && (
-                        <span className="text-[9px] font-black bg-accent/10 text-accent px-2 py-1 rounded-md uppercase tracking-widest">
-                            {product.offer}
-                        </span>
-                    )}
+                <div className="flex items-center justify-center gap-3">
+                    <span className="text-lg font-extrabold text-dark tracking-tighter">₹{product.price}</span>
+                    <span className="text-[10px] font-bold text-dark/10 uppercase tracking-[0.2em]">/ Per KG</span>
                 </div>
             </div>
         </motion.div>
