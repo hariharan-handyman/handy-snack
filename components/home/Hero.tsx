@@ -1,29 +1,18 @@
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
 import Link from 'next/link';
 
 export default function Hero() {
     return (
-        <section className="relative min-h-[90vh] flex items-center justify-center pt-32 pb-20 overflow-hidden bg-white">
+        <section className="relative min-h-[60vh] flex items-center justify-center pt-32 pb-20 overflow-hidden bg-white">
             <div className="container mx-auto px-6 flex flex-col items-center text-center space-y-16">
                 {/* Text Content */}
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                    className="max-w-4xl space-y-12"
-                >
+                <div className="max-w-4xl space-y-12">
                     <div className="space-y-6">
-                        <motion.span
-                            initial={{ opacity: 0, tracking: '0.1em' }}
-                            animate={{ opacity: 1, tracking: '0.4em' }}
-                            transition={{ duration: 1 }}
-                            className="text-[10px] font-bold uppercase text-accent"
-                        >
+                        <span className="text-[10px] font-bold uppercase text-accent tracking-[0.4em]">
                             Handmade Excellence
-                        </motion.span>
+                        </span>
                         <h1 className="text-7xl md:text-[9.5rem] font-extrabold leading-[0.8] tracking-[-0.05em] uppercase text-dark">
                             Purity <span className="text-gray-100">Defined.</span>
                         </h1>
@@ -42,22 +31,7 @@ export default function Hero() {
                             Our Story
                         </Link>
                     </div>
-                </motion.div>
-
-                {/* Hero Image - Centered and Bordered */}
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 1, delay: 0.2 }}
-                    className="relative w-full max-w-5xl aspect-[21/9] bg-gray-50 overflow-hidden border border-gray-100"
-                >
-                    <img
-                        src="/snack-bowl-mixture.png"
-                        alt="Premium Snacks"
-                        className="w-full h-full object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-700"
-                    />
-                    <div className="absolute inset-0 bg-black/5" />
-                </motion.div>
+                </div>
             </div>
 
             {/* Background Texture/Accents */}
